@@ -1,0 +1,129 @@
+<app-header></app-header>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero__text">
+      <h1 class="hero__text-title">Просто лучший отель г. Минска</h1>
+      <p class="hero__text-description">
+        5 звезд. 10 минут от метро Откябрьская. С видом на Минск реку и апартаменты Алена
+      </p>
+      <div class="hero__text-actions">
+        <button class="hero__text-action" tuiButton type="button">Start the generator!</button>
+        <button class="hero__text-action" tuiButton appearance="outline" type="button">
+          Explore trending palettes
+        </button>
+      </div>
+    </div>
+
+    <div class="hero__image">
+      <tui-carousel [(index)]="index" [itemsCount]="1" [draggable]="true" [duration]="4000">
+        <img *tuiItem class="hero__image-image" src="assets/hotel.webp" alt="" draggable="false" />
+        <img *tuiItem class="hero__image-image" src="assets/hotel5.webp" alt="" draggable="false" />
+        <img *tuiItem class="hero__image-image" src="assets/hotel3.webp" alt="" draggable="false" />
+        <img *tuiItem class="hero__image-image" src="assets/hotel2.webp" alt="" draggable="false" />
+      </tui-carousel>
+    </div>
+  </div>
+</div>
+
+<div class="products">
+  <div class="container">
+    <div class="products__list">
+      <div class="products__list-item">
+        <tui-svg class="products__list-item-icon" src="tuiIconCoffee"></tui-svg>
+        <div class="products__list-item-title">iOS App</div>
+        <div class="products__list-item-description">Create, browse and save palettes on the go.</div>
+
+        <div class="products__list-item-hover blue">View on the App Store</div>
+      </div>
+
+      <div class="products__list-item">
+        <tui-svg class="products__list-item-icon" src="tuiIconGithub"></tui-svg>
+        <div class="products__list-item-title">iOS App</div>
+        <div class="products__list-item-description">Create, browse and save palettes on the go.</div>
+
+        <div class="products__list-item-hover green">View on the Play Store</div>
+      </div>
+
+      <div class="products__list-item">
+        <tui-svg class="products__list-item-icon" src="tuiIconFigmaLarge"></tui-svg>
+        <div class="products__list-item-title">iOS App</div>
+        <div class="products__list-item-description">Create, browse and save palettes on the go.</div>
+
+        <div class="products__list-item-hover red">Install now</div>
+      </div>
+
+      <div class="products__list-item">
+        <tui-svg class="products__list-item-icon" src="tuiIconChromeLarge"></tui-svg>
+        <div class="products__list-item-title">Chrome Extension</div>
+        <div class="products__list-item-description">Get and edit a palette every new tab.</div>
+
+        <div class="products__list-item-hover purple">Add to Chrome</div>
+      </div>
+
+      <div class="products__list-item">
+        <tui-svg class="products__list-item-icon" src="tuiIconGlobe"></tui-svg>
+        <div class="products__list-item-title">iOS App</div>
+        <div class="products__list-item-description">Create, browse and save palettes on the go.</div>
+
+        <div class="products__list-item-hover yellow">Download</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="testimonials">
+  <div class="container">
+    <div class="testimonials__inner">
+      <div class="testimonials__title">Used by 5+ million designers and by top companies</div>
+
+      <ul class="testimonials__list">
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+
+        <li class="testimonials__list-item">
+          <img class="testimonials__list-item-icon" src="assets/icons/apple.svg" alt="">
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,59 @@
+.header {
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.075) 0 1px;
+
+  &__logo {
+    padding: 0 24px;
+    display: inline-flex;
+    align-items: center;
+
+    color: #0066ff;
+    font-size: 22px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  &__menu {
+    &-list {
+      margin: 0;
+      padding: 0;
+      display: inline-flex;
+      list-style: none;
+    }
+
+    &-item {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &-link {
+      padding: 16px 10px;
+      display: inline-flex;
+
+      color: #000000;
+      font-size: 15px;
+      text-decoration: none;
+      font-variation-settings: "wght" 500;
+    }
+
+    &-button {
+      margin: 0 10px;
+      font-size: 14px;
+      font-variation-settings: "wght" 600;
+
+      --tui-height-s: 36px;
+      --tui-radius-m: 8px;
+      --tui-padding: 12px;
+    }
+  }
+
+  &__divider {
+    margin: auto 10px;
+    height: 36px;
+    min-width: 1px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+}
