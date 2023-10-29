@@ -6,7 +6,7 @@
 }
 
 .hero {
-  padding: 100px 40px;
+  padding: 100px 16px;
 
   &__text {
     display: flex;
@@ -44,20 +44,20 @@
   }
 
   &__image {
-    margin-left: 120px;
+    margin-left: 100px;
     width: 100%;
     flex-shrink: 1;
 
     &-image {
       width: 100%;
       display: block;
-      border-radius: 6px;
+      border-radius: 16px;
     }
   }
 }
 
 .products {
-  padding: 0 40px 120px;
+  padding: 0 16px 120px;
 
   &__list {
     display: flex;
@@ -147,7 +147,7 @@
 }
 
 .testimonials {
-  padding: 0 40px 100px;
+  padding: 0 16px 100px;
 
   &__inner {
     width: 100%;

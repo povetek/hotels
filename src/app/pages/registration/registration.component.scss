@@ -1,0 +1,51 @@
+:host {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: auto;
+  background-color: #4158d0;
+  background-image: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+}
+
+.registration {
+  margin: auto;
+  padding: 40px 40px;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__title {
+    margin: 0 0 24px 0;
+    color: #262626;
+    font-size: 35px;
+    line-height: 1;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &__button {
+    font-size: 16px;
+    font-weight: 400;
+    --tui-link: #000000;
+    --tui-secondary: #efeff0;
+    font-variation-settings: "wght" 600;
+  }
+
+  &__copyright {
+    margin: 10px 0 0 0;
+    color: #92a0b3;
+    font-size: 16px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,15 @@
+<form class="login" [formGroup]="formGroup" (ngSubmit)="login()">
+  <p class="login__title">Вход с PID</p>
+
+  <tui-input formControlName="email" [tuiTextfieldCleaner]="true">
+    Email
+    <input tuiTextfield type="email" autocomplete="email" />
+  </tui-input>
+
+  <tui-input-password formControlName="password" [tuiTextfieldCleaner]="true">
+    Пароль
+    <input tuiTextfield autocomplete="current-password" />
+  </tui-input-password>
+
+  <button class="login__button" tuiButton [disabled]="formGroup.invalid || (loading$ | async)!">Войти</button>
+</form>

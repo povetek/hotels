@@ -1,0 +1,26 @@
+<form class="registration" [formGroup]="formGroup" (ngSubmit)="register()">
+  <p class="registration__title">Регистрация с PID</p>
+
+  <tui-input formControlName="email" [tuiTextfieldCleaner]="true">
+    Email
+    <input tuiTextfield type="email" autocomplete="email" />
+  </tui-input>
+
+  <tui-input-password formControlName="password" [tuiTextfieldCleaner]="true">
+    Пароль
+    <input tuiTextfield autocomplete="new-password" />
+  </tui-input-password>
+
+  <div>
+    <tui-input-password formControlName="passwordRepeat" [tuiTextfieldCleaner]="true">
+      Повторите пароль
+      <input tuiTextfield autocomplete="new-password" />
+    </tui-input-password>
+
+    <tui-error *ngIf="formGroup.errors?.['mismatch']" error="Пароли не совпадают"></tui-error>
+  </div>
+
+  <button class="registration__button" tuiButton [disabled]="formGroup.invalid || (loading$ | async)!">
+    Зарегистрироваться
+  </button>
+</form>

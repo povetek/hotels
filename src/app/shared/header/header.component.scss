@@ -1,11 +1,11 @@
 .header {
-  padding: 4px;
+  padding: 4px 24px;
   display: flex;
   justify-content: space-between;
   box-shadow: rgba(0, 0, 0, 0.075) 0 1px;
 
   &__logo {
-    padding: 0 24px;
+    padding-right: 24px;
     display: inline-flex;
     align-items: center;
 
@@ -55,5 +55,9 @@
     min-width: 1px;
     display: block;
     background-color: rgba(0, 0, 0, 0.075);
+  }
+
+  &__dropdown-menu {
+    align-items: center;
   }
 }

@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+<div class="cards">
+  <div class="container">
+    <div class="cards__inner">
+      <div *ngFor="let room of rooms" class="card">
+        <img class="card__image" [src]="room.image" alt="" />
+
+        <div class="card__content">
+          <div class="card__title">{{ room.title }}</div>
+          <div class="card__description">{{ room.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

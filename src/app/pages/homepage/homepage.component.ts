@@ -7,14 +7,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomepageComponent {
-  index = 2;
-
-  readonly items = [
-    'John Cleese',
-    'Eric Idle',
-    'Michael Palin',
-    'Graham Chapman',
-    'Terry Gilliam',
-    'Terry Jones',
-  ];
+  index = 0;
 }

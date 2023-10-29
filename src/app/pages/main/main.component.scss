@@ -1,0 +1,51 @@
+.container {
+  margin: 0 auto;
+  width: auto;
+  max-width: 1500px;
+  display: flex;
+}
+
+.cards {
+  padding: 100px 16px;
+
+  &__inner {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+    gap: 24px;
+  }
+}
+
+.card {
+  cursor: pointer;
+
+  &:hover &__image {
+    opacity: 0.75;
+  }
+
+  &__image {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    aspect-ratio: 1.5;
+  }
+
+  &__content {
+    padding: 0 6px 10px;
+  }
+
+  &__title {
+    margin-top: 16px;
+    color: rgb(17 24 39 / 1);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  &__description {
+    margin-top: 0.5rem;
+    color: rgb(107 114 128 / 1);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
