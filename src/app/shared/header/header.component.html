@@ -17,7 +17,7 @@
 
       <ng-container *ngIf="isAuthenticated$ | async; else unregisteredUser">
         <tui-hosted-dropdown class="header__dropdown-menu" [content]="content">
-          <button tuiButton type="button" size="s" [iconRight]="arrow">Профиль</button>
+          <button tuiButton type="button" size="s" [iconRight]="arrow">Меню</button>
         </tui-hosted-dropdown>
 
         <ng-template #content>

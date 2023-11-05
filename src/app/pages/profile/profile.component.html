@@ -1,0 +1,67 @@
+<app-header></app-header>
+
+<div class="profile">
+  <div class="container">
+    <form class="profile__inner" [formGroup]="formGroup" [tuiTextfieldCleaner]="true" (ngSubmit)="upsertProfile()">
+      <h1 class="profile__title tui-text_h1">Контактные данные</h1>
+
+      <tui-input formControlName="surname">
+        Фамилия
+        <input tuiTextfield type="text" autocomplete="family-name" />
+      </tui-input>
+
+      <tui-input formControlName="name">
+        Имя
+        <input tuiTextfield type="text" autocomplete="given-name" />
+      </tui-input>
+
+      <tui-input formControlName="patronymic">
+        Отчество
+        <input tuiTextfield type="text" autocomplete="additional-name" />
+      </tui-input>
+
+      <div>
+        <tui-input-date formControlName="birthdate" tuiUnfinishedValidator="Finish filling the field">
+          Дата рождения
+        </tui-input-date>
+
+        <tui-error formControlName="birthdate" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+
+<!--      <tui-input formControlName="email">-->
+<!--        Электронная почта-->
+<!--        <input tuiTextfield type="email" autocomplete="email" />-->
+<!--      </tui-input>-->
+
+<!--      <tui-input-phone-international-->
+<!--        formControlName="phone"-->
+<!--        [countries]="countries"-->
+<!--        [tuiTextfieldLabelOutside]="true"-->
+<!--        [(countryIsoCode)]="countryIsoCode"-->
+<!--      ></tui-input-phone-international>-->
+
+<!--      <tui-input-card-grouped #component formControlName="meta">-->
+<!--        <tui-data-list *tuiDataList size="l" (keydown.escape)="onEsc(component)">-->
+<!--          <button tuiOption (click)="onClick(component)">-->
+<!--            <tui-svg src="tuiIconPlus" class="new"></tui-svg>-->
+<!--            <span class="label">New card</span>-->
+<!--          </button>-->
+
+<!--          <button *ngFor="let item of items; let index = index" tuiOption [value]="item">-->
+<!--            <tui-thumbnail-card size="s" class="card" [cardNumber]="item.card.slice(-4)"></tui-thumbnail-card>-->
+
+<!--            <label class="label" [tuiLabel]="item.bank">-->
+<!--              {{ item.name }}-->
+<!--            </label>-->
+
+<!--            <span>{{ item.card.slice(-5) }}</span>-->
+<!--          </button>-->
+<!--        </tui-data-list>-->
+<!--      </tui-input-card-grouped>-->
+
+      <button tuiButton [disabled]="formGroup.invalid || (loading$ | async)!">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+<app-footer></app-footer>

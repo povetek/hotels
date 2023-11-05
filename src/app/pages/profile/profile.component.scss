@@ -1,0 +1,34 @@
+.profile {
+  padding: 100px 16px;
+
+  &__inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__title {
+    margin: 0 0 10px 0;
+  }
+}
+
+.new {
+  width: 2rem;
+  height: 1.5rem;
+  border-radius: 4px;
+  background: var(--tui-secondary);
+  color: var(--tui-link);
+}
+
+.card {
+  background: var(--tui-support-01);
+
+  button:nth-child(4) & {
+    background: var(--tui-support-05);
+  }
+}
+
+.label {
+  margin: 0 auto 0 0.75rem;
+}

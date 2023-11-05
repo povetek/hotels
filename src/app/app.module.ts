@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
+import { of } from 'rxjs';
 
 // Angular modules
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,8 +28,20 @@ import {
   TuiErrorModule,
   TuiHostedDropdownModule,
   TuiDataListModule,
+  TuiLabelModule,
 } from '@taiga-ui/core';
-import { TuiCarouselModule, TuiInputModule, TuiInputPasswordModule, TuiIslandModule } from '@taiga-ui/kit';
+import {
+  TuiCarouselModule,
+  TuiFieldErrorPipeModule,
+  TuiInputDateModule,
+  TuiInputModule,
+  TuiInputPasswordModule,
+  TuiInputPhoneInternationalModule,
+  TuiInputPhoneModule,
+  TuiIslandModule,
+} from '@taiga-ui/kit';
+import { TuiInputCardGroupedModule, TuiThumbnailCardModule } from '@taiga-ui/addon-commerce';
+import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
 
 // Pages
 import { AppComponent } from './app.component';
@@ -36,6 +49,7 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { MainComponent } from './pages/main/main.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 // Shared
 import { HeaderComponent } from '@shared/header/header.component';
@@ -48,6 +62,7 @@ import { FooterComponent } from '@shared/footer/footer.component';
     LoginComponent,
     RegistrationComponent,
     MainComponent,
+    ProfileComponent,
     HeaderComponent,
     FooterComponent,
   ],
@@ -80,8 +95,20 @@ import { FooterComponent } from '@shared/footer/footer.component';
     TuiErrorModule,
     TuiHostedDropdownModule,
     TuiDataListModule,
+    TuiInputPhoneModule,
+    TuiInputPhoneInternationalModule,
+    TuiThumbnailCardModule,
+    TuiLabelModule,
+    TuiInputCardGroupedModule,
+    TuiInputDateModule,
+    TuiFieldErrorPipeModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: TUI_LANGUAGE,
+      useValue: of(TUI_RUSSIAN_LANGUAGE),
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -18,3 +18,10 @@ body {
   -webkit-tap-highlight-color: transparent;
   font-variation-settings: "wght" 450;
 }
+
+.container {
+  margin: 0 auto;
+  width: auto;
+  max-width: 1500px;
+  display: flex;
+}

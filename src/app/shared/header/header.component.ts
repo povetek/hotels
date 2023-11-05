@@ -31,18 +31,9 @@ export class HeaderComponent implements OnInit {
           label: 'DataList',
           routerLink: '/components/data-list',
         },
-      ],
-    },
-    {
-      label: `Styles`,
-      items: [
         {
-          label: `Icons`,
-          routerLink: '/icons',
-        },
-        {
-          label: `Typography`,
-          routerLink: '/typography',
+          label: `Профиль`,
+          routerLink: '/profile',
         },
       ],
     },
@@ -59,6 +50,6 @@ export class HeaderComponent implements OnInit {
   signOut(): void {
     this.store.dispatch(AppActions.SetUser({ payload: null }));
     this.supabaseService.signOut().subscribe();
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/');
   }
 }

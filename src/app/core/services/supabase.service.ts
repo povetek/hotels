@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import {
-  AuthError,
   createClient,
   SupabaseClient,
   AuthResponse,
   AuthTokenResponse,
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
-  UserResponse,
 } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { from, Observable } from 'rxjs';
 import { supabaseDataAdapter } from '@core/utils/supabase';
+
+interface UpsertData {
+  id: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -35,27 +37,11 @@ export class SupabaseService {
     return from(this.supabaseClient.auth.signOut()).pipe(supabaseDataAdapter());
   }
 
-  // public getProfile(): PromiseLike<any> {
-  //   const user = this.getUser();
-  //   return this.supabaseClient.from('profiles').select('username, website, avatar_url').eq('id', user?.id).single();
-  // }
-  //
-  // public authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void): any {
-  //   return this.supabaseClient.auth.onAuthStateChange(callback);
-  // }
-  //
-  // public updateProfile(userUpdate: IUser): any {
-  //   const user = this.getUser();
-  //
-  //   const update = {
-  //     username: userUpdate.name,
-  //     website: userUpdate.website,
-  //     id: user?.id,
-  //     updated_at: new Date(),
-  //   };
-  //
-  //   return this.supabaseClient.from('profiles').upsert(update, {
-  //     returning: 'minimal', // Do not return the value after inserting
-  //   });
-  // }
+  select(table: string, fields: string, id: string): Observable<any> {
+    return from(this.supabaseClient.from(table).select(fields).eq('id', id).single()).pipe(supabaseDataAdapter());
+  }
+
+  upsert(table: string, data: UpsertData): Observable<any> {
+    return from(this.supabaseClient.from(table).upsert(data).select()).pipe(supabaseDataAdapter());
+  }
 }

@@ -1,12 +1,5 @@
-.container {
-  margin: 0 auto;
-  width: auto;
-  max-width: 1500px;
-  display: flex;
-}
-
 .hero {
-  padding: 100px 16px;
+  padding: 100px 0 100px 16px;
 
   &__text {
     display: flex;
@@ -17,7 +10,7 @@
     &-title {
       margin: 0;
       width: 100%;
-      max-width: 500px;
+      max-width: 540px;
       font-size: 70px;
       line-height: 1.1;
       font-variation-settings: 'wght' 900;
@@ -25,11 +18,11 @@
 
     &-description {
       margin: 30px 0 0 0;
-      max-width: 400px;
+      max-width: 540px;
 
       color: #464853;
       font-size: 18px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     &-actions {
@@ -44,7 +37,7 @@
   }
 
   &__image {
-    margin-left: 100px;
+    margin-left: 80px;
     width: 100%;
     flex-shrink: 1;
 
@@ -60,7 +53,8 @@
   padding: 0 16px 120px;
 
   &__list {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     font-size: 40px;
 
@@ -158,8 +152,9 @@
   }
 
   &__title {
-    font-size: 20px;
-    font-variation-settings: "wght" 450;
+    font-size: 35px;
+    line-height: 1.1;
+    font-variation-settings: 'wght' 900;
   }
 
   &__list {
@@ -172,10 +167,10 @@
     list-style: none;
 
     &-item {
-      margin: 10px;
+      margin: 10px 20px;
       padding: 20px;
       display: inline-flex;
-      font-size: 50px;
+      font-size: 70px;
       cursor: pointer;
       transition: transform 0.15s ease;
 
