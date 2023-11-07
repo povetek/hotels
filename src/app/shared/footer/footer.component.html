@@ -1,50 +1,26 @@
 <footer class="footer">
-  <div class="footer__container">
+  <div *ngIf="homepage$ | async as homepage" class="footer__container">
     <p class="footer__text">
-      © Povetek Отель создал
-      <a
-        class="footer__link"
-        href="https://www.linkedin.com/in/dmitrydutin"
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-      >
-        Dmitry Dutin
-      </a><!--
-    -->. From a creative to all the others.
+      © {{ homepage.name }} находится по адресу: {{ homepage.address }}, {{ homepage.city }}, {{ homepage.country }}
     </p>
 
     <nav class="footer__social">
       <ul class="footer__social-list">
         <li class="footer__social-item">
-          <a
-            class="footer__social-link"
-            href="https://twitter.com/dmitrydutin"
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-          >
-            <tui-svg src="tuiIconTwitterLarge"></tui-svg>
+          <a class="footer__social-link" [href]="'mailto:' + homepage.email" rel="nofollow noopener noreferrer">
+            <tui-svg src="tuiIconMailLarge"></tui-svg>
           </a>
         </li>
 
         <li class="footer__social-item">
-          <a
-            class="footer__social-link"
-            href="https://www.linkedin.com/in/dmitrydutin"
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-          >
-            <tui-svg src="tuiIconLinkedinLarge"></tui-svg>
+          <a class="footer__social-link" [href]="'tel:' + homepage.phone_number" rel="nofollow noopener noreferrer">
+            <tui-svg src="tuiIconPhoneCallLarge"></tui-svg>
           </a>
         </li>
 
         <li class="footer__social-item">
-          <a
-            class="footer__social-link"
-            href="https://www.instagram.com/dmitry.dutin"
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-          >
-            <tui-svg src="tuiIconInstagramLarge"></tui-svg>
+          <a class="footer__social-link" [href]="homepage.website" target="_blank" rel="nofollow noopener noreferrer">
+            <tui-svg src="tuiIconMonitorLarge"></tui-svg>
           </a>
         </li>
       </ul>

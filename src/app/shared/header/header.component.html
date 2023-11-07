@@ -1,14 +1,10 @@
 <header class="header">
-  <a class="header__logo" routerLink="/">{{ "Povetek Отель" }}</a>
+  <a class="header__logo" routerLink="/">{{ (homepage$ | async)?.name }}</a>
 
   <nav class="header__menu">
     <ul class="header__menu-list">
       <li class="header__menu-item">
-        <a class="header__menu-link" href="">Tools</a>
-      </li>
-
-      <li class="header__menu-item">
-        <a class="header__menu-link" href="">Go Pro</a>
+        <a class="header__menu-link" routerLink="/rooms">Доступные номера</a>
       </li>
 
       <li class="header__menu-item">

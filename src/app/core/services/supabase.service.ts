@@ -15,6 +15,12 @@ interface UpsertData {
   id: string;
 }
 
+export interface Filter {
+  filter: 'eq' | 'gt' | 'lt' | 'gte' | 'lte' | 'like' | 'ilike' | 'is' | 'in' | 'neq';
+  field: string;
+  value: any;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -37,7 +43,24 @@ export class SupabaseService {
     return from(this.supabaseClient.auth.signOut()).pipe(supabaseDataAdapter());
   }
 
-  select(table: string, fields: string, id: string): Observable<any> {
+  select(table: string, fields: string): Observable<any> {
+    return from(this.supabaseClient.from(table).select(fields)).pipe(supabaseDataAdapter());
+  }
+
+  selectWithFilters(table: string, fields: string, filters: Filter[]): Observable<any> {
+    const request = filters.reduce((request, { filter, field, value }) => {
+      switch (filter) {
+        case 'eq':
+          return request.eq(field, value);
+        default:
+          return request;
+      }
+    }, this.supabaseClient.from(table).select(fields));
+
+    return from(request).pipe(supabaseDataAdapter());
+  }
+
+  selectSingle(table: string, fields: string, id: string): Observable<any> {
     return from(this.supabaseClient.from(table).select(fields).eq('id', id).single()).pipe(supabaseDataAdapter());
   }
 

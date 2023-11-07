@@ -1,8 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '@supabase/supabase-js';
+import { Homepage, Profile } from '@store/app/app.interface';
 
 const suffix = '[App]';
 
 export const AppActions = {
-  SetUser: createAction(`${suffix} SetUser`, props<{ payload: User | null }>()),
+  Initialize: createAction(`${suffix} Initialize`),
+  SetProfile: createAction(`${suffix} SetProfile`, props<{ payload: Profile | null }>()),
+  PatchProfile: createAction(`${suffix} PatchProfile`, props<{ payload: Profile }>()),
+  SetHomepage: createAction(`${suffix} SetHomepage`, props<{ payload: Homepage | null }>()),
 };

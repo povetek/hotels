@@ -29,16 +29,21 @@ import {
   TuiHostedDropdownModule,
   TuiDataListModule,
   TuiLabelModule,
+  TuiGroupModule,
 } from '@taiga-ui/core';
 import {
   TuiCarouselModule,
+  TuiCheckboxBlockModule,
+  TuiDataListWrapperModule,
   TuiFieldErrorPipeModule,
   TuiInputDateModule,
   TuiInputModule,
+  TuiInputNumberModule,
   TuiInputPasswordModule,
   TuiInputPhoneInternationalModule,
   TuiInputPhoneModule,
   TuiIslandModule,
+  TuiSelectModule,
 } from '@taiga-ui/kit';
 import { TuiInputCardGroupedModule, TuiThumbnailCardModule } from '@taiga-ui/addon-commerce';
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
@@ -48,7 +53,7 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
-import { MainComponent } from './pages/main/main.component';
+import { RoomsComponent } from './pages/rooms/rooms.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 // Shared
@@ -61,7 +66,7 @@ import { FooterComponent } from '@shared/footer/footer.component';
     HomepageComponent,
     LoginComponent,
     RegistrationComponent,
-    MainComponent,
+    RoomsComponent,
     ProfileComponent,
     HeaderComponent,
     FooterComponent,
@@ -102,6 +107,11 @@ import { FooterComponent } from '@shared/footer/footer.component';
     TuiInputCardGroupedModule,
     TuiInputDateModule,
     TuiFieldErrorPipeModule,
+    TuiInputNumberModule,
+    TuiGroupModule,
+    TuiCheckboxBlockModule,
+    TuiSelectModule,
+    TuiDataListWrapperModule,
   ],
   providers: [
     {

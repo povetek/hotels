@@ -28,36 +28,17 @@
         <tui-error formControlName="birthdate" [error]="[] | tuiFieldError | async"></tui-error>
       </div>
 
-<!--      <tui-input formControlName="email">-->
-<!--        Электронная почта-->
-<!--        <input tuiTextfield type="email" autocomplete="email" />-->
-<!--      </tui-input>-->
+      <tui-input-phone-international
+        formControlName="phone"
+        [countries]="countries"
+        [tuiTextfieldLabelOutside]="true"
+        [(countryIsoCode)]="countryIsoCode"
+      ></tui-input-phone-international>
 
-<!--      <tui-input-phone-international-->
-<!--        formControlName="phone"-->
-<!--        [countries]="countries"-->
-<!--        [tuiTextfieldLabelOutside]="true"-->
-<!--        [(countryIsoCode)]="countryIsoCode"-->
-<!--      ></tui-input-phone-international>-->
-
-<!--      <tui-input-card-grouped #component formControlName="meta">-->
-<!--        <tui-data-list *tuiDataList size="l" (keydown.escape)="onEsc(component)">-->
-<!--          <button tuiOption (click)="onClick(component)">-->
-<!--            <tui-svg src="tuiIconPlus" class="new"></tui-svg>-->
-<!--            <span class="label">New card</span>-->
-<!--          </button>-->
-
-<!--          <button *ngFor="let item of items; let index = index" tuiOption [value]="item">-->
-<!--            <tui-thumbnail-card size="s" class="card" [cardNumber]="item.card.slice(-4)"></tui-thumbnail-card>-->
-
-<!--            <label class="label" [tuiLabel]="item.bank">-->
-<!--              {{ item.name }}-->
-<!--            </label>-->
-
-<!--            <span>{{ item.card.slice(-5) }}</span>-->
-<!--          </button>-->
-<!--        </tui-data-list>-->
-<!--      </tui-input-card-grouped>-->
+      <!--      <tui-input formControlName="email">-->
+      <!--        Электронная почта-->
+      <!--        <input tuiTextfield type="email" autocomplete="email" />-->
+      <!--      </tui-input>-->
 
       <button tuiButton [disabled]="formGroup.invalid || (loading$ | async)!">Сохранить</button>
     </form>

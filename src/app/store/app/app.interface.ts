@@ -1,10 +1,10 @@
-import { User } from '@supabase/supabase-js';
 import { TuiDay } from '@taiga-ui/cdk';
 
 export const APP_FEATURE_KEY = 'app';
 
 export interface IAppState {
-  user: User | null;
+  profile: Profile | null;
+  homepage: Homepage | null;
 }
 
 export interface Profile {
@@ -13,7 +13,38 @@ export interface Profile {
   name: string;
   patronymic: string;
   birthdate: TuiDay;
-  email: string;
   phone: string;
-  meta: any;
+  permissions?: number[];
+}
+
+export interface Homepage {
+  id: number;
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+  email: string;
+  phone_number: string;
+  website: string;
+  fitness_center: boolean;
+  spa_services: boolean;
+  restaurant: boolean;
+  private_security: boolean;
+  work_area: boolean;
+}
+
+export interface Room {
+  id: number;
+  image: string;
+  number: number;
+  room_type: string;
+  bed_count: number;
+  floor_number: number;
+  area: number;
+  price_per_night: number;
+  has_wifi: boolean;
+  has_tv: boolean;
+  has_air_conditioning: boolean;
+  availability_status: boolean;
+  hotel_id: number;
 }

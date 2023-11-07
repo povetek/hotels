@@ -8,25 +8,34 @@ import { TuiDay } from '@taiga-ui/cdk';
 export class ProfileService {
   constructor(private supabaseService: SupabaseService) {}
 
-  getProfile(id: string): Observable<Profile> {
-    return this.supabaseService.select('profile', '', id).pipe(map(this.responseAdapter));
+  getProfileWithPermissions(id: string): Observable<Profile> {
+    return this.supabaseService
+      .selectSingle('profile', '*, profile_permission (permission (code))', id)
+      .pipe(map(this.responseAdapter));
   }
 
   upsertProfile(data: Profile): Observable<Profile> {
-    return this.supabaseService.upsert('profile', this.requestAdapter(data));
+    return this.supabaseService.upsert('profile', this.requestAdapter(data)).pipe(
+      map((response) => response[0]),
+      map(this.responseAdapter),
+    );
   }
 
   private responseAdapter(response: any): Profile {
-    return {
+    const result: Profile = {
       id: response.id,
       surname: response.surname,
       name: response.name,
       patronymic: response.patronymic,
       birthdate: response.birthdate ? TuiDay.normalizeParse(response.birthdate, 'YMD') : TuiDay.currentLocal(),
-      email: response.email,
-      phone: response.phone,
-      meta: response.meta,
+      phone: response.phone_number,
     };
+
+    if (response.profile_permission) {
+      result.permissions = response.profile_permission.map((permission: any) => permission.permission.code);
+    }
+
+    return result;
   }
 
   private requestAdapter(profile: Profile): any {
@@ -36,9 +45,7 @@ export class ProfileService {
       name: profile.name,
       patronymic: profile.patronymic,
       birthdate: profile.birthdate.toString('YMD'),
-      email: profile.email,
-      phone: profile.phone,
-      meta: profile.meta,
+      phone_number: profile.phone,
     };
   }
 }

@@ -1,18 +1,20 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { BehaviorSubject, catchError, EMPTY } from 'rxjs';
+import { BehaviorSubject, catchError, concatMap, EMPTY } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { SupabaseService } from '@core/services/supabase.service';
 import { TuiAlertService, TuiNotificationT } from '@taiga-ui/core';
 import { withLoading } from '@core/utils/supabase';
 import { AppActions } from '@store/app/app.actions';
+import { ProfileService } from '@core/services/profile.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ProfileService],
 })
 export class RegistrationComponent implements OnInit {
   formGroup!: FormGroup;
@@ -22,6 +24,7 @@ export class RegistrationComponent implements OnInit {
     private store: Store,
     private router: Router,
     private supabaseService: SupabaseService,
+    private profileService: ProfileService,
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
   ) {}
 
@@ -44,10 +47,11 @@ export class RegistrationComponent implements OnInit {
           this.showNotification('Auth Error', error, 'error');
           return EMPTY;
         }),
+        concatMap(({ user }) => this.profileService.getProfileWithPermissions(user?.id ?? '')),
       )
-      .subscribe((data) => {
-        this.store.dispatch(AppActions.SetUser({ payload: data.user }));
-        void this.router.navigateByUrl('/main');
+      .subscribe((profile) => {
+        this.store.dispatch(AppActions.SetProfile({ payload: profile }));
+        void this.router.navigateByUrl('/rooms');
       });
   }
 

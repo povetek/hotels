@@ -1,0 +1,86 @@
+<app-header></app-header>
+
+<div class="rooms">
+  <div class="container">
+    <div class="rooms__inner">
+      <form class="filter" tuiGroup [formGroup]="formGroup" (ngSubmit)="filtersSubmit()">
+        <tui-select formControlName="roomType">
+          Тип комнаты
+          <input tuiTextfield />
+          <tui-data-list-wrapper *tuiDataList [items]="roomTypes"></tui-data-list-wrapper>
+        </tui-select>
+
+        <tui-select formControlName="bedCount">
+          Количество мест
+          <input tuiTextfield />
+          <tui-data-list-wrapper *tuiDataList [items]="bedCount"></tui-data-list-wrapper>
+        </tui-select>
+
+        <tui-select formControlName="floorNumber">
+          Этаж
+          <input tuiTextfield />
+          <tui-data-list-wrapper *tuiDataList [items]="floorNumbers"></tui-data-list-wrapper>
+        </tui-select>
+
+        <tui-select formControlName="area">
+          Площадь
+          <input tuiTextfield />
+          <tui-data-list-wrapper *tuiDataList [items]="areas"></tui-data-list-wrapper>
+        </tui-select>
+
+        <button tuiButton>Поиск</button>
+      </form>
+
+      <div class="cards">
+        <div *ngFor="let room of rooms$ | async" class="card">
+          <img class="card__image" [src]="room.image" alt="" />
+
+          <div class="card__content">
+            <div class="card__block">
+              <div class="card__title">Номер {{ room.room_type }}</div>
+              <div class="card__price">{{ room.price_per_night }} BYN</div>
+            </div>
+
+            <div class="card__description">
+              <div class="card__description-item">
+                <tui-svg src="tuiIconUsersLarge"></tui-svg>
+                {{ room.bed_count }} мест(а)
+              </div>
+
+              <div class="card__description-item">
+                <tui-svg src="tuiIconLayersLarge"></tui-svg>
+                Этаж {{ room.floor_number }}
+              </div>
+
+              <div class="card__description-item">
+                <tui-svg src="tuiIconMaximize2Large"></tui-svg>
+                Площадь {{ room.area }} м<sup>2</sup>
+              </div>
+            </div>
+
+            <div class="card__additional">
+              <div *ngIf="room.has_wifi" class="card__additional-item">
+                <tui-svg src="tuiIconWifiLarge"></tui-svg>
+                Wi-Fi
+              </div>
+
+              <div *ngIf="room.has_tv" class="card__additional-item">
+                <tui-svg src="tuiIconTvLarge"></tui-svg>
+                Телевизор
+              </div>
+
+              <div *ngIf="room.has_air_conditioning" class="card__additional-item">
+                <tui-svg src="tuiIconWindLarge"></tui-svg>
+                Кондиционер
+              </div>
+            </div>
+
+            <button class="card__button" tuiButton>Забронировать</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

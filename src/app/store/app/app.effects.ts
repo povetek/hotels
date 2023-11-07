@@ -1,67 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { HomepageService } from '@core/services/homepage.service';
+import { AppActions } from '@store/app/app.actions';
+import { concatMap, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AppEffects {
-  // constructor(
-  //   private readonly actions$: Actions,
-  //   private readonly store: Store,
-  //   private readonly themeService: ThemeService,
-  //   private readonly languageService: LanguageService,
-  // ) {}
+  constructor(
+    private readonly actions$: Actions,
+    private readonly homepageService: HomepageService,
+  ) {}
 
-  // ngrxOnInitEffects(): Action {
-  //   return AppActions.Initialize();
-  // }
-  //
-  // initialize$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(AppActions.Initialize),
-  //     concatLatestFrom(() => [
-  //       this.store.select(AppSelectors.selectThemeKey),
-  //       this.store.select(AppSelectors.selectLanguageKey),
-  //     ]),
-  //     map(([, themeKey, languageKey]) => {
-  //       this.store.dispatch(AppActions.ChangeThemeKey({ payload: themeKey }));
-  //       this.store.dispatch(AppActions.ChangeLanguageKey({ payload: languageKey }));
-  //       return AppActions.InitializeSuccess();
-  //     }),
-  //   ),
-  // );
+  ngrxOnInitEffects(): Action {
+    return AppActions.Initialize();
+  }
 
-  // changeThemeKey$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(AppActions.ChangeThemeKey),
-  //     map(({ payload }) => {
-  //       this.themeService.destroyChangeThemeListener(this.changeThemeListener);
-  //
-  //       if (payload === ThemeKey.System) {
-  //         this.themeService.initChangeThemeListener(this.changeThemeListener);
-  //       }
-  //
-  //       const theme = this.themeService.getThemeByKey(payload);
-  //       return AppActions.ChangeTheme({ payload: theme });
-  //     }),
-  //   ),
-  // );
-  //
-  // // prettier-ignore
-  // changeTheme$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(AppActions.ChangeTheme),
-  //     tap(({ payload }) => {
-  //       if (this.themeService.isThemeSupported(payload)) {
-  //         this.themeService.applyTheme(payload);
-  //       } else {
-  //         this.store.dispatch(AppActions.ChangeThemeKey({ payload: ThemeKey.System }));
-  //         this.store.dispatch(
-  //           ModalsActions.OpenDefaultNotification({
-  //             payload: { text: 'WARNINGS.THEME_NOT_SUPPORTED', translateParams: { theme: payload }, type: 'error' }
-  //           }),
-  //         );
-  //       }
-  //     }),
-  //   ),
-  //   { dispatch: false },
-  // );
+  initialize$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.Initialize),
+      concatMap(() => this.homepageService.getHomepage(environment.hotelId)),
+      map((homepage) => AppActions.SetHomepage({ payload: homepage })),
+    ),
+  );
 }

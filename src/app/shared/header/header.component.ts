@@ -6,6 +6,7 @@ import { AppSelectors } from '@store/app/app.selectors';
 import { AppActions } from '@store/app/app.actions';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Homepage } from '@store/app/app.interface';
 
 @Component({
   selector: 'app-header',
@@ -17,20 +18,8 @@ export class HeaderComponent implements OnInit {
   readonly arrow = TUI_ARROW;
   readonly groups = [
     {
-      label: `Components`,
+      label: ``,
       items: [
-        {
-          label: 'Input',
-          routerLink: '/components/input',
-        },
-        {
-          label: 'Select',
-          routerLink: '/components/select',
-        },
-        {
-          label: 'DataList',
-          routerLink: '/components/data-list',
-        },
         {
           label: `Профиль`,
           routerLink: '/profile',
@@ -40,16 +29,18 @@ export class HeaderComponent implements OnInit {
   ];
 
   isAuthenticated$!: Observable<boolean>;
+  homepage$!: Observable<Homepage | null>;
 
   constructor(private store: Store, private router: Router, private supabaseService: SupabaseService) {}
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.store.select(AppSelectors.selectIsAuthenticated);
+    this.homepage$ = this.store.select(AppSelectors.selectHomepage);
   }
 
   signOut(): void {
-    this.store.dispatch(AppActions.SetUser({ payload: null }));
+    this.store.dispatch(AppActions.SetProfile({ payload: null }));
     this.supabaseService.signOut().subscribe();
-    this.router.navigateByUrl('/');
+    void this.router.navigateByUrl('/');
   }
 }

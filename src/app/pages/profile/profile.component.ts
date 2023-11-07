@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TuiCountryIsoCode } from '@taiga-ui/i18n';
-import { TuiInputCardGroupedComponent } from '@taiga-ui/addon-commerce';
 import { TuiDay } from '@taiga-ui/cdk';
 import { ProfileService } from '@core/services/profile.service';
 import { Store } from '@ngrx/store';
 import { AppSelectors } from '@store/app/app.selectors';
-import { BehaviorSubject, catchError, concatMap, EMPTY } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY } from 'rxjs';
 import { countries, getTuiCountryIsoCode } from '@core/utils/tui';
 import { TuiAlertService, TuiNotificationT } from '@taiga-ui/core';
 import { withLoading } from '@core/utils/supabase';
+import { AppActions } from '@store/app/app.actions';
 
 @Component({
   selector: 'app-profile',
@@ -22,17 +22,6 @@ export class ProfileComponent implements OnInit {
   formGroup!: FormGroup;
   countryIsoCode = TuiCountryIsoCode.BY;
   readonly countries = countries;
-  readonly items = [
-    { card: '4321***1234', expire: '12/21', name: 'Salary', bank: 'Tinkoff' },
-    {
-      card: '8765***5678',
-      expire: '03/42',
-      cvc: '***',
-      name: 'Tips',
-      bank: 'Bank of America',
-    },
-    { card: '4200***9000', name: 'Dogecoins', bank: 'Crypto' },
-  ];
   loading$ = new BehaviorSubject(false);
 
   constructor(
@@ -44,14 +33,15 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.createFormGroup();
 
-    this.store
-      .select(AppSelectors.selectUser)
-      .pipe(concatMap((user) => this.profileService.getProfile(user?.id ?? '').pipe(withLoading(this.loading$))))
-      .subscribe((profile) => {
-        console.log('XXX profile', profile);
+    this.store.select(AppSelectors.selectProfile).subscribe((profile) => {
+      if (profile) {
         this.countryIsoCode = getTuiCountryIsoCode(profile.phone);
-        this.formGroup.patchValue(profile);
-      });
+        this.formGroup.patchValue({
+          ...profile,
+          birthdate: TuiDay.normalizeParse(profile.birthdate.toString('YMD'), 'YMD'),
+        });
+      }
+    });
   }
 
   upsertProfile(): void {
@@ -64,19 +54,10 @@ export class ProfileComponent implements OnInit {
           return EMPTY;
         }),
       )
-      .subscribe(() => {
+      .subscribe((profile) => {
+        this.store.dispatch(AppActions.PatchProfile({ payload: profile }));
         this.showNotification('Успех', 'Данные обновлены', 'success');
       });
-  }
-
-  onClick(component: TuiInputCardGroupedComponent): void {
-    this.formGroup.get('meta')?.setValue(null);
-    this.onEsc(component);
-  }
-
-  onEsc(component: TuiInputCardGroupedComponent): void {
-    component.nativeFocusableElement?.focus();
-    component.open = false;
   }
 
   private createFormGroup() {
@@ -86,8 +67,8 @@ export class ProfileComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       patronymic: new FormControl('', [Validators.required]),
       birthdate: new FormControl(TuiDay.currentLocal(), [Validators.required]),
+      phone: new FormControl('', [Validators.required]),
       // email: new FormControl('', [Validators.required]),
-      // phone: new FormControl('', [Validators.required]),
       // meta: new FormControl(this.items[0]),
     });
   }

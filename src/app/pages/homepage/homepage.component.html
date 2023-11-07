@@ -9,8 +9,8 @@
         237 комфортабельных номеров и 30 люксов высокого класса.
       </p>
       <div class="hero__text-actions">
-        <button class="hero__text-action" tuiButton type="button" routerLink="/main">Забронировать сейчас</button>
-        <button class="hero__text-action" tuiButton appearance="outline" type="button">Исследовать варианты</button>
+        <button class="hero__text-action" tuiButton type="button" routerLink="/rooms">Забронировать сейчас</button>
+        <button class="hero__text-action" tuiButton appearance="outline" type="button" routerLink="/rooms">Подобрать номер</button>
       </div>
     </div>
 
@@ -27,36 +27,36 @@
 
 <div class="products">
   <div class="container">
-    <div class="products__list">
-      <div class="products__list-item">
+    <div *ngIf="homepage$ | async as homepage" class="products__list">
+      <div *ngIf="homepage?.fitness_center" class="products__list-item">
         <tui-svg class="products__list-item-icon" src="tuiIconZapLarge"></tui-svg>
         <div class="products__list-item-title">Фитнес-клуб</div>
         <div class="products__list-item-description">Чистые залы для тренировок с новыми тренажерами</div>
         <div class="products__list-item-hover blue">View on the App Store</div>
       </div>
 
-      <div class="products__list-item">
+      <div *ngIf="homepage?.spa_services" class="products__list-item">
         <tui-svg class="products__list-item-icon" src="tuiIconWindLarge"></tui-svg>
         <div class="products__list-item-title">SPA Riviera</div>
         <div class="products__list-item-description">Совершенный SPA-лайнер, переносящий вас в мир красоты</div>
         <div class="products__list-item-hover green">View on the Play Store</div>
       </div>
 
-      <div class="products__list-item">
+      <div *ngIf="homepage?.restaurant" class="products__list-item">
         <tui-svg class="products__list-item-icon" src="tuiIconCoffeeLarge"></tui-svg>
         <div class="products__list-item-title">Ресторан ТЕРРА</div>
         <div class="products__list-item-description">Ресторан современной белорусской кухни</div>
         <div class="products__list-item-hover red">Install now</div>
       </div>
 
-      <div class="products__list-item">
+      <div *ngIf="homepage?.private_security" class="products__list-item">
         <tui-svg class="products__list-item-icon" src="tuiIconShieldLarge"></tui-svg>
         <div class="products__list-item-title">Частная охрана</div>
         <div class="products__list-item-description">Постоянная охрана и досмотр всех входящих и выходящих</div>
         <div class="products__list-item-hover purple">Add to Chrome</div>
       </div>
 
-      <div class="products__list-item">
+      <div *ngIf="homepage?.work_area" class="products__list-item">
         <tui-svg class="products__list-item-icon" src="tuiIconBriefcaseLarge"></tui-svg>
         <div class="products__list-item-title">Рабочие зоны</div>
         <div class="products__list-item-description">Просторные места для комфортной работы</div>
