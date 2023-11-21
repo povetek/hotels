@@ -3,6 +3,20 @@
 
   <nav class="header__menu">
     <ul class="header__menu-list">
+      <ng-container *ngIf="true">
+        <li class="header__menu-item">
+          <a class="header__menu-link" routerLink="/rooms">Панель сотрудника</a>
+        </li>
+
+        <li class="header__menu-item">
+          <a class="header__menu-link" routerLink="/rooms">Статистика</a>
+        </li>
+
+        <li class="header__menu-item">
+          <span class="header__divider"></span>
+        </li>
+      </ng-container>
+
       <li class="header__menu-item">
         <a class="header__menu-link" routerLink="/rooms">Доступные номера</a>
       </li>

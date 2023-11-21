@@ -35,6 +35,14 @@
         [(countryIsoCode)]="countryIsoCode"
       ></tui-input-phone-international>
 
+      <ng-container *ngIf="isClient$ | async">
+        <p>Инпуты клиента</p>
+      </ng-container>
+
+      <ng-container *ngIf="isEmployee$ | async">
+        <p>Инпуты сотрудника</p>
+      </ng-container>
+
       <!--      <tui-input formControlName="email">-->
       <!--        Электронная почта-->
       <!--        <input tuiTextfield type="email" autocomplete="email" />-->

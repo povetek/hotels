@@ -85,7 +85,7 @@
   &__additional {
     margin-top: 16px;
     display: flex;
-    gap: 8px;
+    gap: 10px;
     align-items: center;
 
     &-item {
@@ -104,4 +104,16 @@
     margin-top: 18px;
     width: 100%;
   }
+}
+
+.margin-top {
+  margin-top: 25px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mb-0 {
+  margin-bottom: 10px;
 }

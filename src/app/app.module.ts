@@ -41,8 +41,9 @@ import {
   TuiInputNumberModule,
   TuiInputPasswordModule,
   TuiInputPhoneInternationalModule,
-  TuiInputPhoneModule,
+  TuiInputPhoneModule, TuiInputSliderModule,
   TuiIslandModule,
+  TuiRadioBlockModule,
   TuiSelectModule,
 } from '@taiga-ui/kit';
 import { TuiInputCardGroupedModule, TuiThumbnailCardModule } from '@taiga-ui/addon-commerce';
@@ -112,6 +113,8 @@ import { FooterComponent } from '@shared/footer/footer.component';
     TuiCheckboxBlockModule,
     TuiSelectModule,
     TuiDataListWrapperModule,
+    TuiRadioBlockModule,
+    TuiInputSliderModule,
   ],
   providers: [
     {

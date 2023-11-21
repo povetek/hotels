@@ -47,4 +47,22 @@ export interface Room {
   has_air_conditioning: boolean;
   availability_status: boolean;
   hotel_id: number;
+  available_date: string;
+}
+
+export interface Transfer {
+  id: number;
+  name: string;
+  departure_place: string;
+  arrival_place: string;
+  price: number;
+}
+
+export interface Reservation {
+  client_id: string | undefined;
+  room_id: number;
+  arrival_date: string;
+  departure_date: string;
+  price: number;
+  transfer_id: number;
 }

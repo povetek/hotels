@@ -5,11 +5,12 @@ import { TuiDay } from '@taiga-ui/cdk';
 import { ProfileService } from '@core/services/profile.service';
 import { Store } from '@ngrx/store';
 import { AppSelectors } from '@store/app/app.selectors';
-import { BehaviorSubject, catchError, EMPTY } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, Observable } from 'rxjs';
 import { countries, getTuiCountryIsoCode } from '@core/utils/tui';
 import { TuiAlertService, TuiNotificationT } from '@taiga-ui/core';
 import { withLoading } from '@core/utils/supabase';
 import { AppActions } from '@store/app/app.actions';
+import { PermissionsService } from '@core/services/permissions.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,15 +24,20 @@ export class ProfileComponent implements OnInit {
   countryIsoCode = TuiCountryIsoCode.BY;
   readonly countries = countries;
   loading$ = new BehaviorSubject(false);
+  isClient$!: Observable<boolean>;
+  isEmployee$!: Observable<boolean>;
 
   constructor(
     private store: Store,
     private profileService: ProfileService,
+    private permissionsService: PermissionsService,
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
   ) {}
 
   ngOnInit(): void {
     this.formGroup = this.createFormGroup();
+    this.isClient$ = this.permissionsService.isClient();
+    this.isEmployee$ = this.permissionsService.isEmployee();
 
     this.store.select(AppSelectors.selectProfile).subscribe((profile) => {
       if (profile) {

@@ -52,6 +52,8 @@ export class SupabaseService {
       switch (filter) {
         case 'eq':
           return request.eq(field, value);
+        case 'lte':
+          return request.lte(field, value);
         default:
           return request;
       }
@@ -62,6 +64,14 @@ export class SupabaseService {
 
   selectSingle(table: string, fields: string, id: string): Observable<any> {
     return from(this.supabaseClient.from(table).select(fields).eq('id', id).single()).pipe(supabaseDataAdapter());
+  }
+
+  insert(table: string, data: UpsertData): Observable<any> {
+    return from(this.supabaseClient.from(table).insert(data).select()).pipe(supabaseDataAdapter());
+  }
+
+  update(table: string, id: string, data: UpsertData): Observable<any> {
+    return from(this.supabaseClient.from(table).update(data).eq('id', id).select()).pipe(supabaseDataAdapter());
   }
 
   upsert(table: string, data: UpsertData): Observable<any> {

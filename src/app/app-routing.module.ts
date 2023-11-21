@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [] },
   { path: 'registration', component: RegistrationComponent, canActivate: [] },
   { path: 'rooms', component: RoomsComponent, canActivate: [authGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [permissionsGuardHOF([1])] },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+  // { path: 'profile', component: ProfileComponent, canActivate: [permissionsGuardHOF([1])] },
 ];
 
 @NgModule({
