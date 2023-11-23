@@ -86,7 +86,7 @@ export class SupabaseService {
     return from(request.order(orderBy.filed, { ascending: orderBy.ascending })).pipe(supabaseDataAdapter());
   }
 
-  selectSingle(table: string, fields: string, id: string): Observable<any> {
+  selectSingle(table: string, fields: string, id: string, query?: string): Observable<any> {
     return from(this.supabaseClient.from(table).select(fields).eq('id', id).single()).pipe(supabaseDataAdapter());
   }
 
