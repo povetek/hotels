@@ -1,12 +1,25 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Profile } from '@store/app/app.interface';
+import { Client, Employee, Profile } from '@store/app/app.interface';
 import { SupabaseService } from '@core/services/supabase.service';
 import { TuiDay } from '@taiga-ui/cdk';
 
 @Injectable()
 export class ProfileService {
   constructor(private supabaseService: SupabaseService) {}
+
+  getClient(id: string): Observable<Client> {
+    return this.supabaseService.selectSingle('client', '*', id);
+  }
+
+  upsertClient(data: Client): Observable<Client> {
+    return this.supabaseService.upsert('client', data as any).pipe(map((response) => response[0]));
+  }
+
+  getEmployee(id: string): Observable<Employee> {
+    const query = `SELECT * FROM employee`;
+    return this.supabaseService.selectSingle('employee', '*, job_title (*)', id, query);
+  }
 
   getProfileWithPermissions(id: string): Observable<Profile> {
     return this.supabaseService

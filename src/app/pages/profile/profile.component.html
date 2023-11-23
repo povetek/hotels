@@ -56,13 +56,42 @@
       </ng-container>
 
       <ng-container *ngIf="isEmployee$ | async">
-        <p>Инпуты сотрудника</p>
-      </ng-container>
+        <tui-input formControlName="jobTitle">
+          Должность
+          <input tuiTextfield type="text" />
+        </tui-input>
 
-      <!--      <tui-input formControlName="email">-->
-      <!--        Электронная почта-->
-      <!--        <input tuiTextfield type="email" autocomplete="email" />-->
-      <!--      </tui-input>-->
+        <tui-input formControlName="salary">
+          Зарплата
+          <input tuiTextfield type="text" />
+        </tui-input>
+
+        <tui-input formControlName="room">
+          Комната
+          <input tuiTextfield type="text" />
+        </tui-input>
+
+        <tui-input formControlName="workExperience">
+          Стаж работы
+          <input tuiTextfield type="text" />
+        </tui-input>
+
+        <div>
+          <tui-input-date formControlName="hiringDay" tuiUnfinishedValidator="Finish filling the field">
+            День приема на работу
+          </tui-input-date>
+
+          <tui-error formControlName="birthdate" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+
+        <div>
+          <tui-input-date formControlName="dismissalDay" tuiUnfinishedValidator="Finish filling the field">
+            День увольнения
+          </tui-input-date>
+
+          <tui-error formControlName="birthdate" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+      </ng-container>
 
       <button tuiButton [disabled]="formGroup.invalid || (loading$ | async)!">Сохранить</button>
     </form>

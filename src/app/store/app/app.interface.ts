@@ -98,3 +98,16 @@ export interface Client {
   passport_validity_period: string;
   profile?: Profile;
 }
+
+export interface Employee {
+  id: number;
+  hiring_day: string;
+  dismissal_day: string;
+  work_experience: number;
+  job_title: {
+    id: number;
+    room: number;
+    salary: number;
+    title: string;
+  };
+}
