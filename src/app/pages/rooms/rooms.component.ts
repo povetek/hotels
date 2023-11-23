@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { RoomService } from '@core/services/room.service';
-import { BehaviorSubject, filter } from 'rxjs';
+import { BehaviorSubject, filter, take } from 'rxjs';
 import { Menu, Reservation, Restaurant, Room, Transfer } from '@store/app/app.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Filter } from '@core/services/supabase.service';
@@ -130,6 +130,7 @@ export class RoomsComponent implements OnInit {
     this.store
       .select(AppSelectors.selectProfile)
       .pipe(
+        take(1),
         filter((profile) => {
           if (profile && profile.surname) {
             return true;

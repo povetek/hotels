@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RoomService } from '@core/services/room.service';
-import { BehaviorSubject, filter } from 'rxjs';
+import { BehaviorSubject, filter, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Filter, SupabaseService } from '@core/services/supabase.service';
 import { AppSelectors } from '@store/app/app.selectors';
@@ -30,7 +30,10 @@ export class ReservationComponent implements OnInit {
   getRooms(): void {
     this.store
       .select(AppSelectors.selectProfile)
-      .pipe(filter((profile) => !!profile))
+      .pipe(
+        take(1),
+        filter((profile) => !!profile),
+      )
       .subscribe((profile) => {
         const filters: Filter[] = [
           // {
