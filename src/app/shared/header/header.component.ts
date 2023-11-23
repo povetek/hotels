@@ -7,6 +7,7 @@ import { AppActions } from '@store/app/app.actions';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Homepage } from '@store/app/app.interface';
+import { PermissionsService } from '@core/services/permissions.service';
 
 @Component({
   selector: 'app-header',
@@ -30,12 +31,19 @@ export class HeaderComponent implements OnInit {
 
   isAuthenticated$!: Observable<boolean>;
   homepage$!: Observable<Homepage | null>;
+  isEmployee$!: Observable<boolean>;
 
-  constructor(private store: Store, private router: Router, private supabaseService: SupabaseService) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private supabaseService: SupabaseService,
+    private permissionsService: PermissionsService,
+  ) {}
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.store.select(AppSelectors.selectIsAuthenticated);
     this.homepage$ = this.store.select(AppSelectors.selectHomepage);
+    this.isEmployee$ = this.permissionsService.isEmployee();
   }
 
   signOut(): void {

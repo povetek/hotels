@@ -8,6 +8,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RoomsComponent } from './pages/rooms/rooms.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ReservationComponent } from './pages/reservation/reservation.component';
+import { EmployeePanelComponent } from './pages/employee-panel/employee-panel.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, canActivate: [] },
@@ -15,7 +18,9 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent, canActivate: [] },
   { path: 'rooms', component: RoomsComponent, canActivate: [authGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
-  // { path: 'profile', component: ProfileComponent, canActivate: [permissionsGuardHOF([1])] },
+  { path: 'reservation', component: ReservationComponent, canActivate: [authGuard] },
+  { path: 'employee-panel', component: EmployeePanelComponent, canActivate: [permissionsGuardHOF([2])] },
+  { path: 'statistics', component: StatisticsComponent, canActivate: [permissionsGuardHOF([2])] },
 ];
 
 @NgModule({

@@ -3,13 +3,13 @@
 
   <nav class="header__menu">
     <ul class="header__menu-list">
-      <ng-container *ngIf="true">
+      <ng-container *ngIf="isEmployee$ | async">
         <li class="header__menu-item">
-          <a class="header__menu-link" routerLink="/rooms">Панель сотрудника</a>
+          <a class="header__menu-link" routerLink="/employee-panel">Панель сотрудника</a>
         </li>
 
         <li class="header__menu-item">
-          <a class="header__menu-link" routerLink="/rooms">Статистика</a>
+          <a class="header__menu-link" routerLink="/statistics">Статистика</a>
         </li>
 
         <li class="header__menu-item">
@@ -19,6 +19,10 @@
 
       <li class="header__menu-item">
         <a class="header__menu-link" routerLink="/rooms">Доступные номера</a>
+      </li>
+
+      <li class="header__menu-item">
+        <a class="header__menu-link" routerLink="/reservation">Бронь</a>
       </li>
 
       <li class="header__menu-item">

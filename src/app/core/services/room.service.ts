@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Filter, SupabaseService } from '@core/services/supabase.service';
-import { Profile, Reservation, Room, Transfer } from '@store/app/app.interface';
+import { Menu, Profile, Reservation, Restaurant, Room, Transfer } from '@store/app/app.interface';
 
 @Injectable()
 export class RoomService {
@@ -11,8 +11,34 @@ export class RoomService {
     return this.supabaseService.select('room', '*');
   }
 
+  getReservationsEmployee(filters: Filter[]): Observable<Reservation[]> {
+    return this.supabaseService.selectWithFiltersAndOrderBy(
+      'reservation',
+      '*, room (*), transfer (*), restaurant (*), menu (*), client (profile (*))',
+      filters,
+      { filed: 'id', ascending: false },
+    );
+  }
+
+  getReservations(filters: Filter[]): Observable<Reservation[]> {
+    return this.supabaseService.selectWithFiltersAndOrderBy(
+      'reservation',
+      '*, room (*), transfer (*), restaurant (*), menu (*)',
+      filters,
+      { filed: 'id', ascending: false },
+    );
+  }
+
   getRoomsWithFilters(filters: Filter[]): Observable<Room[]> {
     return this.supabaseService.selectWithFilters('room', '*', filters);
+  }
+
+  getRestaurants(): Observable<Restaurant[]> {
+    return this.supabaseService.select('restaurant', '*');
+  }
+
+  getMenus(): Observable<Menu[]> {
+    return this.supabaseService.select('menu', '*');
   }
 
   getTransfers(): Observable<Transfer[]> {

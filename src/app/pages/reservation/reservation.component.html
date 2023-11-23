@@ -1,0 +1,103 @@
+<app-header></app-header>
+
+<div class="rooms">
+  <div class="container">
+    <div class="rooms__inner">
+      <div class="cards">
+        <div *ngFor="let reservation of reservations$ | async" #card class="card">
+          <img class="card__image" [src]="reservation.room?.image" alt="" />
+
+          <div class="card__content">
+            <div class="card__block">
+              <div class="card__title">Номер {{ reservation.room?.room_type }}</div>
+              <div class="card__price">{{ reservation.price }} BYN</div>
+            </div>
+
+            <div class="card__description">
+              <div class="card__description-item">
+                Дата начала: {{ reservation.arrival_date }}
+              </div>
+
+              <div class="card__description-item">
+                Дата окончания: {{ reservation.departure_date }}
+              </div>
+            </div>
+
+            <div class="card__description">
+              <div class="card__description-item">
+                <tui-svg src="tuiIconUsersLarge"></tui-svg>
+                {{ reservation.room?.bed_count }} мест(а)
+              </div>
+
+              <div class="card__description-item">
+                <tui-svg src="tuiIconLayersLarge"></tui-svg>
+                Этаж {{ reservation.room?.floor_number }}
+              </div>
+
+              <div class="card__description-item">
+                <tui-svg src="tuiIconMaximize2Large"></tui-svg>
+                Площадь {{ reservation.room?.area }} м<sup>2</sup>
+              </div>
+            </div>
+
+            <div class="card__additional">
+              <div *ngIf="reservation.room?.has_wifi" class="card__additional-item">
+                <tui-svg src="tuiIconWifiLarge"></tui-svg>
+                Wi-Fi
+              </div>
+
+              <div *ngIf="reservation.room?.has_tv" class="card__additional-item">
+                <tui-svg src="tuiIconTvLarge"></tui-svg>
+                Телевизор
+              </div>
+
+              <div *ngIf="reservation.room?.has_air_conditioning" class="card__additional-item">
+                <tui-svg src="tuiIconWindLarge"></tui-svg>
+                Кондиционер
+              </div>
+            </div>
+
+            <div class="m-t" tuiGroup [formGroup]="fakeGroup" [collapsed]="true">
+              <tui-radio-block
+                *ngIf="reservation.restaurant?.name"
+                formControlName="test"
+                size="l"
+                contentAlign="right"
+                [hideRadio]="true"
+              >
+                {{ reservation.restaurant?.name }}
+              </tui-radio-block>
+
+              <tui-radio-block
+                *ngIf="reservation.menu?.name"
+                formControlName="test"
+                size="l"
+                contentAlign="right"
+                [hideRadio]="true"
+              >
+                {{ reservation.menu?.name }}
+              </tui-radio-block>
+
+              <tui-radio-block
+                *ngIf="reservation.transfer?.name"
+                formControlName="test"
+                size="l"
+                contentAlign="right"
+                [hideRadio]="true"
+              >
+                {{ reservation.transfer?.name }}
+              </tui-radio-block>
+            </div>
+
+            <button class="card__button" tuiButton appearance="secondary" (click)="print(card)">
+              Вывести на печать
+            </button>
+            <button class="card__button" tuiButton (click)="exportExcel(reservation)">Сохранить в exel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

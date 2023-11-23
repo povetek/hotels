@@ -36,7 +36,23 @@
       ></tui-input-phone-international>
 
       <ng-container *ngIf="isClient$ | async">
-        <p>Инпуты клиента</p>
+        <tui-input formControlName="passportSeries">
+          Серия паспорта
+          <input tuiTextfield type="text" />
+        </tui-input>
+
+        <tui-input formControlName="passportId">
+          Номер паспорта
+          <input tuiTextfield type="text" />
+        </tui-input>
+
+        <div>
+          <tui-input-date formControlName="passportValidityPeriod" tuiUnfinishedValidator="Finish filling the field">
+            Cрок действия паспорта
+          </tui-input-date>
+
+          <tui-error formControlName="birthdate" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
       </ng-container>
 
       <ng-container *ngIf="isEmployee$ | async">

@@ -30,6 +30,7 @@ import {
   TuiDataListModule,
   TuiLabelModule,
   TuiGroupModule,
+  TuiTooltipModule,
 } from '@taiga-ui/core';
 import {
   TuiCarouselModule,
@@ -37,11 +38,13 @@ import {
   TuiDataListWrapperModule,
   TuiFieldErrorPipeModule,
   TuiInputDateModule,
+  TuiInputDateRangeModule,
   TuiInputModule,
   TuiInputNumberModule,
   TuiInputPasswordModule,
   TuiInputPhoneInternationalModule,
-  TuiInputPhoneModule, TuiInputSliderModule,
+  TuiInputPhoneModule,
+  TuiInputSliderModule,
   TuiIslandModule,
   TuiRadioBlockModule,
   TuiSelectModule,
@@ -56,6 +59,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RoomsComponent } from './pages/rooms/rooms.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ReservationComponent } from './pages/reservation/reservation.component';
+import { EmployeePanelComponent } from './pages/employee-panel/employee-panel.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 // Shared
 import { HeaderComponent } from '@shared/header/header.component';
@@ -69,6 +75,9 @@ import { FooterComponent } from '@shared/footer/footer.component';
     RegistrationComponent,
     RoomsComponent,
     ProfileComponent,
+    ReservationComponent,
+    EmployeePanelComponent,
+    StatisticsComponent,
     HeaderComponent,
     FooterComponent,
   ],
@@ -115,6 +124,8 @@ import { FooterComponent } from '@shared/footer/footer.component';
     TuiDataListWrapperModule,
     TuiRadioBlockModule,
     TuiInputSliderModule,
+    TuiTooltipModule,
+    TuiInputDateRangeModule,
   ],
   providers: [
     {

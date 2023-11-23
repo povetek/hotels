@@ -5,7 +5,7 @@ import { TuiDay } from '@taiga-ui/cdk';
 import { ProfileService } from '@core/services/profile.service';
 import { Store } from '@ngrx/store';
 import { AppSelectors } from '@store/app/app.selectors';
-import { BehaviorSubject, catchError, EMPTY, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, Observable, take } from 'rxjs';
 import { countries, getTuiCountryIsoCode } from '@core/utils/tui';
 import { TuiAlertService, TuiNotificationT } from '@taiga-ui/core';
 import { withLoading } from '@core/utils/supabase';
@@ -38,6 +38,20 @@ export class ProfileComponent implements OnInit {
     this.formGroup = this.createFormGroup();
     this.isClient$ = this.permissionsService.isClient();
     this.isEmployee$ = this.permissionsService.isEmployee();
+
+    this.isClient$.pipe(take(1)).subscribe((isClient) => {
+      if (isClient) {
+        this.formGroup.addControl('passportSeries', new FormControl('', [Validators.required]));
+        this.formGroup.addControl('passportId', new FormControl('', [Validators.required]));
+        this.formGroup.addControl('passportValidityPeriod', new FormControl('', [Validators.required]));
+      }
+    });
+
+    this.isEmployee$.pipe(take(1)).subscribe((isEmployee) => {
+      if (isEmployee) {
+
+      }
+    });
 
     this.store.select(AppSelectors.selectProfile).subscribe((profile) => {
       if (profile) {
@@ -74,8 +88,6 @@ export class ProfileComponent implements OnInit {
       patronymic: new FormControl('', [Validators.required]),
       birthdate: new FormControl(TuiDay.currentLocal(), [Validators.required]),
       phone: new FormControl('', [Validators.required]),
-      // email: new FormControl('', [Validators.required]),
-      // meta: new FormControl(this.items[0]),
     });
   }
 

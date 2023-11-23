@@ -12,7 +12,6 @@
 }
 
 .cards {
-  margin-top: 50px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -106,6 +105,10 @@
   }
 }
 
+.m-t {
+  margin-top: 18px;
+}
+
 .margin-top {
   margin-top: 30px;
 }
@@ -116,4 +119,33 @@
 
 .mb-0 {
   margin-bottom: 10px;
+}
+
+.print_table {
+  display: none;
+}
+
+@media print {
+  app-header,
+  .card,
+  app-footer {
+    display: none;
+  }
+
+  .rooms {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .cards {
+    margin-top: 0;
+  }
+
+  .card {
+    max-width: 800px;
+  }
+
+  .print_table {
+    display: table;
+  }
 }

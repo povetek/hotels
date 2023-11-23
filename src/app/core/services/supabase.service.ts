@@ -54,12 +54,36 @@ export class SupabaseService {
           return request.eq(field, value);
         case 'lte':
           return request.lte(field, value);
+        case 'gte':
+          return request.gte(field, value);
         default:
           return request;
       }
     }, this.supabaseClient.from(table).select(fields));
 
     return from(request).pipe(supabaseDataAdapter());
+  }
+
+  selectWithFiltersAndOrderBy(
+    table: string,
+    fields: string,
+    filters: Filter[],
+    orderBy: { filed: string; ascending: boolean },
+  ): Observable<any> {
+    const request = filters.reduce((request, { filter, field, value }) => {
+      switch (filter) {
+        case 'eq':
+          return request.eq(field, value);
+        case 'lte':
+          return request.lte(field, value);
+        case 'gte':
+          return request.gte(field, value);
+        default:
+          return request;
+      }
+    }, this.supabaseClient.from(table).select(fields));
+
+    return from(request.order(orderBy.filed, { ascending: orderBy.ascending })).pipe(supabaseDataAdapter());
   }
 
   selectSingle(table: string, fields: string, id: string): Observable<any> {

@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { RoomService } from '@core/services/room.service';
 import { BehaviorSubject, filter } from 'rxjs';
-import { Room, Transfer } from '@store/app/app.interface';
+import { Menu, Reservation, Restaurant, Room, Transfer } from '@store/app/app.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Filter } from '@core/services/supabase.service';
 import { AppSelectors } from '@store/app/app.selectors';
 import { TuiDay } from '@taiga-ui/cdk';
 import { Store } from '@ngrx/store';
+import { TuiAlertService, TuiNotificationT } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-rooms',
@@ -28,15 +29,29 @@ export class RoomsComponent implements OnInit {
   readonly max = 30;
   readonly totalSteps = 30;
 
-  rooms$ = new BehaviorSubject<Room[] | null>(null);
-  transfers$ = new BehaviorSubject<Transfer[] | null>(null);
+  rooms$ = new BehaviorSubject<Room[]>([]);
+  restaurants$ = new BehaviorSubject<Restaurant[]>([]);
+  menus$ = new BehaviorSubject<Menu[]>([]);
+  transfers$ = new BehaviorSubject<Transfer[]>([]);
 
-  constructor(private store: Store, private readonly roomService: RoomService) {}
+  constructor(
+    private store: Store,
+    private readonly roomService: RoomService,
+    @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
+  ) {}
 
   ngOnInit(): void {
     this.formGroup = this.createFormGroup();
     this.transferGroup = this.createTransferGroup();
     this.getRooms();
+
+    this.roomService.getRestaurants().subscribe((restaurants) => {
+      this.restaurants$.next(restaurants);
+    });
+
+    this.roomService.getMenus().subscribe((menus) => {
+      this.menus$.next(menus);
+    });
 
     this.roomService.getTransfers().subscribe((transfers) => {
       this.transfers$.next(transfers);
@@ -44,11 +59,13 @@ export class RoomsComponent implements OnInit {
   }
 
   getRooms(): void {
-    const filters: Filter[] = [{
-      filter: 'lte',
-      field: 'available_date',
-      value: TuiDay.currentLocal().toString('YMD'),
-    }];
+    const filters: Filter[] = [
+      {
+        filter: 'lte',
+        field: 'available_date',
+        value: TuiDay.currentLocal().toString('YMD'),
+      },
+    ];
 
     this.roomService.getRoomsWithFilters(filters).subscribe((rooms) => {
       this.rooms$.next(rooms);
@@ -112,27 +129,41 @@ export class RoomsComponent implements OnInit {
 
     this.store
       .select(AppSelectors.selectProfile)
-      .pipe(filter((profile) => !!profile))
-      .subscribe((profile) => {
-        const { room, transfer, days } = this.transferGroup.getRawValue();
+      .pipe(
+        filter((profile) => {
+          if (profile && profile.surname) {
+            return true;
+          }
 
-        const reservationData = {
+          this.showNotification('Отказ', 'Заполните профиль пользователя', 'error');
+          return false;
+        }),
+      )
+      .subscribe((profile) => {
+        const { room, transfer, days, restaurant, menu } = this.transferGroup.getRawValue();
+
+        const reservationData: Reservation = {
           client_id: profile?.id,
           room_id: room.id,
           arrival_date: TuiDay.currentLocal().toString('YMD'),
           departure_date: TuiDay.currentLocal().append({ day: days }).toString('YMD'),
           price: room.price_per_night * days + transfer.price,
           transfer_id: transfer.id,
+          restaurant_id: restaurant.id,
+          menu_id: menu.id,
         };
-        this.roomService.insertReservation(reservationData).subscribe();
 
-        const roomData = {
-          available_date: TuiDay.currentLocal()
-            .append({ day: days + 1 })
-            .toString('YMD'),
-        };
-        this.roomService.updateRoom(room.id, roomData).subscribe();
-        this.getRooms();
+        this.roomService.insertReservation(reservationData).subscribe(() => {
+          const roomData = {
+            available_date: TuiDay.currentLocal()
+              .append({ day: days + 1 })
+              .toString('YMD'),
+          };
+
+          this.roomService.updateRoom(room.id, roomData).subscribe(() => {
+            this.getRooms();
+          });
+        });
       });
   }
 
@@ -148,8 +179,14 @@ export class RoomsComponent implements OnInit {
   private createTransferGroup() {
     return new FormGroup({
       room: new FormControl('', Validators.required),
-      transfer: new FormControl('', Validators.required),
       days: new FormControl(1, Validators.required),
+      restaurant: new FormControl('', Validators.required),
+      menu: new FormControl('', Validators.required),
+      transfer: new FormControl('', Validators.required),
     });
+  }
+
+  private showNotification(title: string, text: string, status?: TuiNotificationT): void {
+    this.alerts.open(text, { label: title, status }).subscribe();
   }
 }

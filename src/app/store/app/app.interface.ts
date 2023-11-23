@@ -50,6 +50,21 @@ export interface Room {
   available_date: string;
 }
 
+export interface Restaurant {
+  id: number;
+  name: string;
+  address: string;
+  contacts: number;
+  price: number;
+}
+
+export interface Menu {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+}
+
 export interface Transfer {
   id: number;
   name: string;
@@ -59,10 +74,27 @@ export interface Transfer {
 }
 
 export interface Reservation {
+  id?: number;
   client_id: string | undefined;
   room_id: number;
   arrival_date: string;
   departure_date: string;
   price: number;
   transfer_id: number;
+  restaurant_id: number;
+  menu_id: number;
+  menu?: Menu;
+  room?: Room;
+  restaurant?: Restaurant;
+  transfer?: Transfer;
+  created_at?: any;
+  client?: Client;
+}
+
+export interface Client {
+  id: number;
+  passport_series: string;
+  passport_id: string;
+  passport_validity_period: string;
+  profile?: Profile;
 }

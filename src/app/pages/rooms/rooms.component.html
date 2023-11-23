@@ -91,7 +91,44 @@
   [(tuiDialog)]="open"
 >
   <form [formGroup]="transferGroup" (ngSubmit)="modalSubmit(observer)">
-    <h3 class="title margin-top mb-0">Выберите вариант трансфера</h3>
+    <h3 class="title margin-top mb-0">Количество дней</h3>
+    <tui-input-slider formControlName="days" [min]="min" [max]="max" [steps]="totalSteps">
+      Количество дней
+    </tui-input-slider>
+
+    <h3 class="title margin-top mb-0">Ресторан</h3>
+    <div tuiGroup [collapsed]="true">
+      <tui-radio-block
+        *ngFor="let restaurant of restaurants$ | async"
+        contentAlign="right"
+        formControlName="restaurant"
+        size="l"
+        [hideRadio]="true"
+        [item]="restaurant"
+      >
+        {{ restaurant.name }}
+
+        <tui-tooltip [content]="restaurant.address" direction="bottom"></tui-tooltip>
+      </tui-radio-block>
+    </div>
+
+    <h3 class="title margin-top mb-0">Меню</h3>
+    <div tuiGroup [collapsed]="true">
+      <tui-radio-block
+        *ngFor="let menu of menus$ | async"
+        contentAlign="right"
+        formControlName="menu"
+        size="l"
+        [hideRadio]="true"
+        [item]="menu"
+      >
+        {{ menu.name }}
+
+        <tui-tooltip [content]="menu.description" direction="bottom"></tui-tooltip>
+      </tui-radio-block>
+    </div>
+
+    <h3 class="title margin-top mb-0">Трансфер</h3>
     <div tuiGroup [collapsed]="true">
       <tui-radio-block
         *ngFor="let transfer of transfers$ | async"
@@ -104,11 +141,6 @@
         {{ transfer.name }}
       </tui-radio-block>
     </div>
-
-    <h3 class="title margin-top mb-0">Укажите количество дней</h3>
-    <tui-input-slider formControlName="days" [min]="min" [max]="max" [steps]="totalSteps">
-      Количество дней
-    </tui-input-slider>
 
     <button class="margin-top w-100" tuiButton type="submit" [disabled]="transferGroup.invalid">Подтвердить</button>
   </form>
