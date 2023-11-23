@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Injector, OnInit } from '@angular/core';
 import { RoomService } from '@core/services/room.service';
 import { BehaviorSubject, filter, take } from 'rxjs';
 import { Menu, Reservation, Restaurant, Room, Transfer } from '@store/app/app.interface';
@@ -7,7 +7,9 @@ import { Filter } from '@core/services/supabase.service';
 import { AppSelectors } from '@store/app/app.selectors';
 import { TuiDay } from '@taiga-ui/cdk';
 import { Store } from '@ngrx/store';
-import { TuiAlertService, TuiNotificationT } from '@taiga-ui/core';
+import { TuiAlertService, TuiDialogService, TuiNotificationT } from '@taiga-ui/core';
+import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
+import { ReviewComponent } from '@shared/review/review.component';
 
 @Component({
   selector: 'app-rooms',
@@ -34,10 +36,18 @@ export class RoomsComponent implements OnInit {
   menus$ = new BehaviorSubject<Menu[]>([]);
   transfers$ = new BehaviorSubject<Transfer[]>([]);
 
+  private readonly dialog = this.dialogs.open<number>(new PolymorpheusComponent(ReviewComponent, this.injector), {
+    data: 237,
+    dismissible: true,
+    label: 'Heading',
+  });
+
   constructor(
     private store: Store,
     private readonly roomService: RoomService,
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
+    @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
+    @Inject(Injector) private readonly injector: Injector,
   ) {}
 
   ngOnInit(): void {
@@ -166,6 +176,17 @@ export class RoomsComponent implements OnInit {
           });
         });
       });
+  }
+
+  showReviews(room: Room): void {
+    this.dialog.subscribe({
+      next: (data) => {
+        console.info(`Dialog emitted data = ${data}`);
+      },
+      complete: () => {
+        console.info('Dialog closed');
+      },
+    });
   }
 
   private createFormGroup() {

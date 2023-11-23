@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
             if (isClient) {
               this.formGroup.addControl('passportSeries', new FormControl('', [Validators.required]));
               this.formGroup.addControl('passportId', new FormControl('', [Validators.required]));
-              this.formGroup.addControl('passportValidityPeriod', new FormControl('', [Validators.required]));
+              this.formGroup.addControl('passportValidityPeriod', new FormControl(null, [Validators.required]));
 
               this.profileService.getClient(profile.id).subscribe((client) => {
                 this.formGroup.patchValue({

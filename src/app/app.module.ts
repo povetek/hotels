@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 // Angular modules
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 // NgRx modules
@@ -49,7 +49,7 @@ import {
   TuiRadioBlockModule,
   TuiSelectModule,
 } from '@taiga-ui/kit';
-import { TuiInputCardGroupedModule, TuiThumbnailCardModule } from '@taiga-ui/addon-commerce';
+import { TuiInputCardGroupedModule, TuiMoneyModule, TuiThumbnailCardModule } from '@taiga-ui/addon-commerce';
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
 
 // Pages
@@ -66,6 +66,8 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
 // Shared
 import { HeaderComponent } from '@shared/header/header.component';
 import { FooterComponent } from '@shared/footer/footer.component';
+import { ReviewComponent } from '@shared/review/review.component';
+import { TuiAutoFocusModule } from '@taiga-ui/cdk';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,7 @@ import { FooterComponent } from '@shared/footer/footer.component';
     StatisticsComponent,
     HeaderComponent,
     FooterComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,6 +129,9 @@ import { FooterComponent } from '@shared/footer/footer.component';
     TuiInputSliderModule,
     TuiTooltipModule,
     TuiInputDateRangeModule,
+    TuiMoneyModule,
+    TuiAutoFocusModule,
+    FormsModule,
   ],
   providers: [
     {
