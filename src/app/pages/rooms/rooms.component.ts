@@ -179,14 +179,7 @@ export class RoomsComponent implements OnInit {
         dismissible: true,
         label: 'Отзывы',
       })
-      .subscribe({
-        next: (data) => {
-          console.info(`Dialog emitted data = ${data}`);
-        },
-        complete: () => {
-          console.info('Dialog closed');
-        },
-      });
+      .subscribe();
   }
 
   private createFormGroup() {

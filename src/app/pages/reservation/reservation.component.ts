@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Injector, OnInit } from '@angular/core';
 import { RoomService } from '@core/services/room.service';
 import { BehaviorSubject, filter, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Filter, SupabaseService } from '@core/services/supabase.service';
 import { AppSelectors } from '@store/app/app.selectors';
 import * as XLSX from 'xlsx';
-import { Reservation } from '@store/app/app.interface';
+import { Reservation, Room } from '@store/app/app.interface';
 import { FormControl, FormGroup } from '@angular/forms';
+import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
+import { ReviewComponent } from '@shared/review/review.component';
+import { TuiDialogService } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-reservation',
@@ -21,7 +24,12 @@ export class ReservationComponent implements OnInit {
   });
   reservations$ = new BehaviorSubject<Reservation[]>([]);
 
-  constructor(private store: Store, private readonly roomService: RoomService) {}
+  constructor(
+    private store: Store,
+    private readonly roomService: RoomService,
+    @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
+    @Inject(Injector) private readonly injector: Injector,
+  ) {}
 
   ngOnInit(): void {
     this.getRooms();
@@ -92,5 +100,15 @@ export class ReservationComponent implements OnInit {
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
     XLSX.writeFile(workbook, 'output.xlsx');
+  }
+
+  showReviews(reservation: Reservation): void {
+    this.dialogs
+      .open<number>(new PolymorpheusComponent(ReviewComponent, this.injector), {
+        data: reservation?.room?.id,
+        dismissible: true,
+        label: 'Отзывы',
+      })
+      .subscribe();
   }
 }
