@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Client, Employee, Profile } from '@store/app/app.interface';
+import { Client, Employee, Profile, Review } from '@store/app/app.interface';
 import { SupabaseService } from '@core/services/supabase.service';
 import { TuiDay } from '@taiga-ui/cdk';
 
@@ -32,6 +32,16 @@ export class ProfileService {
       map((response) => response[0]),
       map(this.responseAdapter),
     );
+  }
+
+  getReviews(roomId: number): Observable<Review[]> {
+    return this.supabaseService.selectWithFilters('review', '*, client (profile (*))', [
+      { filter: 'eq', field: 'room_id', value: roomId },
+    ]);
+  }
+
+  createReview(data: Review): Observable<Review> {
+    return this.supabaseService.insert('review', data as any).pipe(map((response) => response[0]));
   }
 
   private responseAdapter(response: any): Profile {

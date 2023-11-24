@@ -111,3 +111,15 @@ export interface Employee {
     title: string;
   };
 }
+
+export interface Review {
+  client_id: string;
+  comment: string;
+  created_at: string;
+  date: string;
+  rating: number;
+  room_id: number;
+  client: {
+    profile: Profile;
+  };
+}

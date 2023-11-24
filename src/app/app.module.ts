@@ -47,6 +47,7 @@ import {
   TuiInputSliderModule,
   TuiIslandModule,
   TuiRadioBlockModule,
+  TuiRatingModule,
   TuiSelectModule,
 } from '@taiga-ui/kit';
 import { TuiInputCardGroupedModule, TuiMoneyModule, TuiThumbnailCardModule } from '@taiga-ui/addon-commerce';
@@ -132,6 +133,7 @@ import { TuiAutoFocusModule } from '@taiga-ui/cdk';
     TuiMoneyModule,
     TuiAutoFocusModule,
     FormsModule,
+    TuiRatingModule,
   ],
   providers: [
     {

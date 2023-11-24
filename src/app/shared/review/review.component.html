@@ -1,30 +1,35 @@
-<p class="text">
-  Your balance:
-  <tui-money [value]="data"></tui-money>
-</p>
+<div class="reviews">
+  <div class="reviews__content">
+    <div *ngFor="let review of reviews$ | async" class="review">
+      <div class="review__info">
+        <p class="review__author">
+          {{ review.client.profile.surname }} {{ review.client.profile.name }} {{ review.client.profile.patronymic }}
+        </p>
+        <p class="review__date">{{ review.date }}</p>
+      </div>
 
-<tui-input tuiAutoFocus tuiTextfieldSize="m" [(ngModel)]="name"> Type a name </tui-input>
-
-<tui-select
-  tuiTextfieldSize="m"
-  class="tui-space_top-3 tui-space_bottom-5"
-  [tuiTextfieldLabelOutside]="true"
-  [(ngModel)]="value"
->
-  Select a sum
-  <tui-data-list-wrapper *tuiDataList [items]="items"></tui-data-list-wrapper>
-</tui-select>
-
-<input tuiSlider type="range" class="tui-space_bottom-5" [max]="10" [ngModel]="5" />
-
-<button size="m" tuiButton type="button" [disabled]="!hasValue" (click)="submit()">Submit</button>
-
-<p>
-  <button size="m" tuiButton type="button" (click)="showDialog(template)">Show one more dialog</button>
-</p>
-
-<ng-template #template>
-  <div class="dialog">
-    <p>This one is a template dialog</p>
+      <tui-rating class="review__rating" [(ngModel)]="review.rating" [readOnly]="true"></tui-rating>
+      <p class="review__text">{{ review.comment }}</p>
+    </div>
   </div>
-</ng-template>
+
+  <div class="reviews__footer">
+    <div class="reviews__footer-group">
+      <tui-rating class="review__rating" [formControl]="ratingControl"></tui-rating>
+
+      <tui-input [formControl]="reviewControl">
+        Отзыв
+        <input tuiTextfield type="text" />
+      </tui-input>
+    </div>
+
+    <button
+      tuiButton
+      type="button"
+      [disabled]="reviewControl.invalid || ratingControl.invalid"
+      (click)="createReview()"
+    >
+      Отправить
+    </button>
+  </div>
+</div>

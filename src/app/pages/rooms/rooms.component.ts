@@ -36,12 +36,6 @@ export class RoomsComponent implements OnInit {
   menus$ = new BehaviorSubject<Menu[]>([]);
   transfers$ = new BehaviorSubject<Transfer[]>([]);
 
-  private readonly dialog = this.dialogs.open<number>(new PolymorpheusComponent(ReviewComponent, this.injector), {
-    data: 237,
-    dismissible: true,
-    label: 'Heading',
-  });
-
   constructor(
     private store: Store,
     private readonly roomService: RoomService,
@@ -179,14 +173,20 @@ export class RoomsComponent implements OnInit {
   }
 
   showReviews(room: Room): void {
-    this.dialog.subscribe({
-      next: (data) => {
-        console.info(`Dialog emitted data = ${data}`);
-      },
-      complete: () => {
-        console.info('Dialog closed');
-      },
-    });
+    this.dialogs
+      .open<number>(new PolymorpheusComponent(ReviewComponent, this.injector), {
+        data: room.id,
+        dismissible: true,
+        label: 'Отзывы',
+      })
+      .subscribe({
+        next: (data) => {
+          console.info(`Dialog emitted data = ${data}`);
+        },
+        complete: () => {
+          console.info('Dialog closed');
+        },
+      });
   }
 
   private createFormGroup() {
