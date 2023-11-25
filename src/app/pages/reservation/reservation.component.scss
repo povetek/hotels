@@ -20,6 +20,8 @@
 
 .card {
   max-width: 484px;
+  position: relative;
+  overflow: hidden;
 
   &__image {
     width: 100%;
@@ -160,4 +162,19 @@
     flex-grow: 1;
     max-width: 50%;
   }
+}
+
+.ended {
+  padding: 15px 80px;
+  background-color: #ff4f03;
+  transform: translateX(50%) translateY(-50%) rotateZ(45deg);
+
+  color: rgb(17, 24, 39);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+
+  position: absolute;
+  top: 45px;
+  right: 45px;
 }

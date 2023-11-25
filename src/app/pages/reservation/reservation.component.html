@@ -5,6 +5,7 @@
     <div class="rooms__inner">
       <div class="cards">
         <div *ngFor="let reservation of reservations$ | async" #card class="card">
+          <div *ngIf="isDateMoreThanNow(reservation.departure_date)" class="ended">Завершен</div>
           <img class="card__image" [src]="reservation.room?.image" alt="" />
 
           <div class="card__content">
@@ -15,7 +16,6 @@
 
             <div class="card__description">
               <div class="card__description-item">Дата начала: {{ reservation.arrival_date }}</div>
-
               <div class="card__description-item">Дата окончания: {{ reservation.departure_date }}</div>
             </div>
 

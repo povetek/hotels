@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { ReviewComponent } from '@shared/review/review.component';
 import { TuiDialogService } from '@taiga-ui/core';
+import { TuiDay } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-reservation',
@@ -110,5 +111,10 @@ export class ReservationComponent implements OnInit {
         label: 'Отзывы',
       })
       .subscribe();
+  }
+
+  isDateMoreThanNow(date: string): boolean {
+    const passedDate = date ? TuiDay.normalizeParse(date, 'YMD') : TuiDay.currentLocal();
+    return passedDate.dayBefore(TuiDay.currentLocal());
   }
 }
