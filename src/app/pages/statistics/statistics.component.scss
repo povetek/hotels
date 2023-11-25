@@ -1,5 +1,5 @@
 .rooms {
-  padding: 100px 16px;
+  padding: 0px 16px 100px;
 
   &__inner {
     width: 100%;
@@ -148,4 +148,8 @@
   .print_table {
     display: table;
   }
+}
+
+.table {
+  width: 100%;
 }

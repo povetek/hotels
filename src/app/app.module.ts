@@ -30,7 +30,7 @@ import {
   TuiDataListModule,
   TuiLabelModule,
   TuiGroupModule,
-  TuiTooltipModule,
+  TuiTooltipModule, TuiFormatNumberPipeModule,
 } from '@taiga-ui/core';
 import {
   TuiCarouselModule,
@@ -50,6 +50,7 @@ import {
   TuiRatingModule,
   TuiSelectModule,
 } from '@taiga-ui/kit';
+import { TuiTableModule } from '@taiga-ui/addon-table';
 import { TuiInputCardGroupedModule, TuiMoneyModule, TuiThumbnailCardModule } from '@taiga-ui/addon-commerce';
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
 
@@ -69,6 +70,7 @@ import { HeaderComponent } from '@shared/header/header.component';
 import { FooterComponent } from '@shared/footer/footer.component';
 import { ReviewComponent } from '@shared/review/review.component';
 import { TuiAutoFocusModule } from '@taiga-ui/cdk';
+import { TuiRingChartModule } from '@taiga-ui/addon-charts';
 
 @NgModule({
   declarations: [
@@ -134,6 +136,9 @@ import { TuiAutoFocusModule } from '@taiga-ui/cdk';
     TuiAutoFocusModule,
     FormsModule,
     TuiRatingModule,
+    TuiTableModule,
+    TuiFormatNumberPipeModule,
+    TuiRingChartModule,
   ],
   providers: [
     {

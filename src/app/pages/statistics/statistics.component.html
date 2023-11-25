@@ -5,11 +5,42 @@
     <div class="rooms__inner">
       <h1 class="tui-text_h1">Статистика</h1>
 
-      <p>Самый дорогой билет / max()</p>
-      <p>Самый дешевый билет / min()</p>
-      <p>Средняя цена билета / avg()</p>
+      <table tuiTable class="table" [columns]="columns">
+        <thead>
+          <tr tuiThGroup>
+            <th tuiTh>Параметр</th>
+            <th tuiTh>Значение</th>
+          </tr>
+        </thead>
 
-      <p>Средняя цена билета / avg()</p>
+        <tbody tuiTbody>
+          <tr tuiTr>
+            <td *tuiCell="'param'" tuiTd>Самая дорогая бронь</td>
+            <td *tuiCell="'value'" tuiTd>{{ maxPrice$ | async }} рублей</td>
+          </tr>
+
+          <tr tuiTr>
+            <td *tuiCell="'param'" tuiTd>Самая дешевая бронь</td>
+            <td *tuiCell="'value'" tuiTd>{{ minPrice$ | async }} рублей</td>
+          </tr>
+
+          <tr tuiTr>
+            <td *tuiCell="'param'" tuiTd>Средняя цена брони</td>
+            <td *tuiCell="'value'" tuiTd>{{ avgPrice$ | async }} рублей</td>
+          </tr>
+
+          <tr tuiTr>
+            <td *tuiCell="'param'" tuiTd>Общее количество броней</td>
+            <td *tuiCell="'value'" tuiTd>{{ reservationsCount$ | async }} штуки</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <tui-ring-chart [value]="value">
+        <div>Всего броней: {{ reservationsCount$ | async }}</div>
+      </tui-ring-chart>
+
+      <p>{{ reservationsPrices$ | async | json }}</p>
     </div>
   </div>
 </div>

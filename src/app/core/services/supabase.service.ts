@@ -101,4 +101,8 @@ export class SupabaseService {
   upsert(table: string, data: UpsertData): Observable<any> {
     return from(this.supabaseClient.from(table).upsert(data).select()).pipe(supabaseDataAdapter());
   }
+
+  rpc(query: string): Observable<any> {
+    return from(this.supabaseClient.rpc(query)).pipe(supabaseDataAdapter());
+  }
 }
