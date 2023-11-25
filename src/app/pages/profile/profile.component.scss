@@ -1,15 +1,11 @@
 .profile {
-  padding: 100px 16px;
+  padding: 0 16px 60px;
 
   &__inner {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-
-  &__title {
-    margin: 0 0 10px 0;
   }
 }
 

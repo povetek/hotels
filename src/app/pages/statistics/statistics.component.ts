@@ -13,21 +13,10 @@ export class StatisticsComponent implements OnInit {
   minPrice$ = new BehaviorSubject(0);
   avgPrice$ = new BehaviorSubject(0);
   reservationsCount$ = new BehaviorSubject(0);
-  reservationsPrices$ = new BehaviorSubject([]);
+  reservationsPrices$ = new BehaviorSubject(0);
 
-  readonly value = [13769, 12367, 10172, 3018, 2592];
-
-  readonly data = [
-    {
-      param: 'Alex Inkin',
-      value: 1323525,
-    },
-    {
-      param: 'Roman Sedov',
-      value: 423242,
-    },
-  ] as const;
-  readonly columns = ['param', 'value'];
+  roomReservationsCount$ = new BehaviorSubject<number[]>([]);
+  roomReservationsCountLabels$ = new BehaviorSubject<string[]>([]);
 
   constructor(private readonly statisticsService: StatisticsService) {}
 
@@ -54,10 +43,26 @@ export class StatisticsComponent implements OnInit {
 
     this.statisticsService.callProcedureReservationsPrice().subscribe((reservationsPrices) => {
       console.log('XXX reservationsPrices', reservationsPrices);
+      this.reservationsPrices$.next(reservationsPrices[0].reservations_price);
+    });
 
-      this.reservationsPrices$.next(
-        reservationsPrices.map((reservationsPrice: any) => reservationsPrice.reservations_price),
+    this.statisticsService.callProcedureRoomReservationsCount().subscribe((roomReservationsCount) => {
+      console.log('XXX roomReservationsCount', roomReservationsCount);
+
+      this.roomReservationsCount$.next(
+        roomReservationsCount.map((roomReservationCount: any) => roomReservationCount.reservations_count),
+      );
+
+      this.roomReservationsCountLabels$.next(
+        roomReservationsCount.map(
+          (roomReservationCount: any) =>
+            `Номер ${roomReservationCount.room_type}, ${roomReservationCount.reservations_count} брони(ей)`,
+        ),
       );
     });
+  }
+
+  getColor(index: number): string {
+    return `var(--tui-chart-${index})`;
   }
 }

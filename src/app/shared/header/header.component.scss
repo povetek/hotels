@@ -1,3 +1,10 @@
+.beautiful-line {
+  position: relative;
+  border-width: 10px 0 0;
+  border-top-style: solid;
+  border-image: linear-gradient(139deg, #fb8817, #ff4b01, #c12127, #e02aff) 3;
+}
+
 .header {
   padding: 4px 24px;
   display: flex;
@@ -9,7 +16,7 @@
     display: inline-flex;
     align-items: center;
 
-    color: #0066ff;
+    color: var(--tui-primary);
     font-size: 22px;
     font-weight: 800;
     text-decoration: none;

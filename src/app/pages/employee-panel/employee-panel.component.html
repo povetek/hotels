@@ -14,27 +14,17 @@
             </div>
 
             <div class="card__description">
-              <div class="card__description-item">
-               Фамилия: {{ reservation.client?.profile?.surname }}
-              </div>
+              <div class="card__description-item">Фамилия: {{ reservation.client?.profile?.surname }}</div>
 
-              <div class="card__description-item">
-                Имя: {{ reservation.client?.profile?.name }}
-              </div>
+              <div class="card__description-item">Имя: {{ reservation.client?.profile?.name }}</div>
 
-              <div class="card__description-item">
-                Отчество: {{ reservation.client?.profile?.patronymic }}
-              </div>
+              <div class="card__description-item">Отчество: {{ reservation.client?.profile?.patronymic }}</div>
             </div>
 
             <div class="card__description">
-              <div class="card__description-item">
-                Дата начала: {{ reservation.arrival_date }}
-              </div>
+              <div class="card__description-item">Дата начала: {{ reservation.arrival_date }}</div>
 
-              <div class="card__description-item">
-                Дата окончания: {{ reservation.departure_date }}
-              </div>
+              <div class="card__description-item">Дата окончания: {{ reservation.departure_date }}</div>
             </div>
 
             <div class="card__description">
@@ -103,13 +93,14 @@
               </tui-radio-block>
             </div>
 
-            <button class="card__button" tuiButton appearance="secondary" (click)="showReviews(reservation)">
+            <button class="card__button" tuiButton appearance="outline" (click)="showReviews(reservation)">
               Отзывы
             </button>
-            <button class="card__button" tuiButton appearance="secondary" (click)="print(card)">
-              Вывести на печать
-            </button>
-            <button class="card__button" tuiButton (click)="exportExcel(reservation)">Сохранить в exel</button>
+
+            <div class="button-wrapper">
+              <button tuiButton appearance="outline" (click)="print(card)">Печать</button>
+              <button tuiButton (click)="exportExcel(reservation)">Сохранить в exel</button>
+            </div>
           </div>
         </div>
       </div>

@@ -5,10 +5,13 @@
 }
 
 :root {
-  --tui-primary: #0066ff;
   --tui-font-heading: "Inter", sans-serif;
   --tui-font-text: "Inter", sans-serif;
   --tui-disabled-opacity: 0.40;
+
+  --tui-primary: #221e1f;
+  --tui-primary-hover: #221e1f;
+  --tui-primary-active: #221e1f;
 }
 
 body {

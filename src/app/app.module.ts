@@ -69,8 +69,8 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { HeaderComponent } from '@shared/header/header.component';
 import { FooterComponent } from '@shared/footer/footer.component';
 import { ReviewComponent } from '@shared/review/review.component';
-import { TuiAutoFocusModule } from '@taiga-ui/cdk';
-import { TuiRingChartModule } from '@taiga-ui/addon-charts';
+import { TuiAutoFocusModule, TuiHoveredModule } from '@taiga-ui/cdk';
+import { TuiLegendItemModule, TuiRingChartModule } from '@taiga-ui/addon-charts';
 
 @NgModule({
   declarations: [
@@ -139,6 +139,8 @@ import { TuiRingChartModule } from '@taiga-ui/addon-charts';
     TuiTableModule,
     TuiFormatNumberPipeModule,
     TuiRingChartModule,
+    TuiLegendItemModule,
+    TuiHoveredModule,
   ],
   providers: [
     {

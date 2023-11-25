@@ -1,7 +1,14 @@
+.beautiful-line {
+  position: relative;
+  border-width: 10px 0 0;
+  border-top-style: solid;
+  border-image: linear-gradient(139deg, #fb8817, #ff4b01, #c12127, #e02aff) 3;
+}
+
 .footer {
   padding: 42px 16px;
-  background-color: #f7f7f8;
-  //box-shadow: rgba(0, 0, 0, 0.075) 0 -1px;
+  background-color: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 
   &__container {
     margin: 0 auto;

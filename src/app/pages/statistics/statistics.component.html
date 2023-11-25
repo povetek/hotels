@@ -5,7 +5,7 @@
     <div class="rooms__inner">
       <h1 class="tui-text_h1">Статистика</h1>
 
-      <table tuiTable class="table" [columns]="columns">
+      <table tuiTable class="table" [columns]="['param', 'value']">
         <thead>
           <tr tuiThGroup>
             <th tuiTh>Параметр</th>
@@ -15,32 +15,49 @@
 
         <tbody tuiTbody>
           <tr tuiTr>
-            <td *tuiCell="'param'" tuiTd>Самая дорогая бронь</td>
+            <td *tuiCell="'param'" tuiTd>Самая дорогая бронь люксового номера</td>
             <td *tuiCell="'value'" tuiTd>{{ maxPrice$ | async }} рублей</td>
           </tr>
 
           <tr tuiTr>
-            <td *tuiCell="'param'" tuiTd>Самая дешевая бронь</td>
+            <td *tuiCell="'param'" tuiTd>Самая дешевая бронь трехместного номера</td>
             <td *tuiCell="'value'" tuiTd>{{ minPrice$ | async }} рублей</td>
           </tr>
 
           <tr tuiTr>
-            <td *tuiCell="'param'" tuiTd>Средняя цена брони</td>
+            <td *tuiCell="'param'" tuiTd>Средняя цена брони, где в качестве меню выбран Шведский стол</td>
             <td *tuiCell="'value'" tuiTd>{{ avgPrice$ | async }} рублей</td>
           </tr>
 
           <tr tuiTr>
-            <td *tuiCell="'param'" tuiTd>Общее количество броней</td>
+            <td *tuiCell="'param'" tuiTd>Количество броней, где трансфер класса Комфорт или Бизнес</td>
             <td *tuiCell="'value'" tuiTd>{{ reservationsCount$ | async }} штуки</td>
+          </tr>
+
+          <tr tuiTr>
+            <td *tuiCell="'param'" tuiTd>Количество броней, с ценой выше среднего</td>
+            <td *tuiCell="'value'" tuiTd>{{ reservationsPrices$ | async }} штуки</td>
           </tr>
         </tbody>
       </table>
 
-      <tui-ring-chart [value]="value">
-        <div>Всего броней: {{ reservationsCount$ | async }}</div>
-      </tui-ring-chart>
+      <h4 class="tui-text_h4">Количество броней для разных типов номеров</h4>
 
-      <p>{{ reservationsPrices$ | async | json }}</p>
+      <div class="wrapper">
+        <tui-ring-chart [value]="(roomReservationsCount$ | async) || []">
+          <div>Брони номеров</div>
+        </tui-ring-chart>
+
+        <div class="legend">
+          <tui-legend-item
+            *ngFor="let label of roomReservationsCountLabels$ | async; let index = index"
+            size="s"
+            class="item"
+            [color]="getColor(index)"
+            [text]="label"
+          ></tui-legend-item>
+        </div>
+      </div>
     </div>
   </div>
 </div>

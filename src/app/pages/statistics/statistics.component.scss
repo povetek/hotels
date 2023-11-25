@@ -1,5 +1,29 @@
+:host {
+  --tui-chart-0: #c779d0;
+  --tui-chart-1: #feac5e;
+  --tui-chart-2: #ff5f6d;
+  --tui-chart-3: #4bc0c8;
+  --tui-chart-4: #9795cd;
+}
+
+.wrapper {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.legend {
+  margin: 0 0 0 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  margin: 0 0.5rem 0.75rem 0;
+}
+
 .rooms {
-  padding: 0px 16px 100px;
+  padding: 0 16px 60px;
 
   &__inner {
     width: 100%;

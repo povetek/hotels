@@ -1,5 +1,5 @@
 .rooms {
-  padding: 100px 16px;
+  padding: 60px 16px;
 
   &__inner {
     width: 100%;
@@ -19,7 +19,7 @@
 }
 
 .card {
-  max-width: 600px;
+  max-width: 484px;
 
   &__image {
     width: 100%;
@@ -147,5 +147,17 @@
 
   .print_table {
     display: table;
+  }
+}
+
+.button-wrapper {
+  margin-top: 18px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+
+  button {
+    flex-grow: 1;
+    max-width: 50%;
   }
 }

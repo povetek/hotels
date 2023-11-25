@@ -2,13 +2,17 @@
   <div class="reviews__content">
     <div *ngFor="let review of reviews$ | async" class="review">
       <div class="review__info">
-        <p class="review__author">
-          {{ review.client.profile.surname }} {{ review.client.profile.name }} {{ review.client.profile.patronymic }}
-        </p>
-        <p class="review__date">{{ review.date }}</p>
+        <div>
+          <p class="review__author">
+            {{ review.client.profile.surname }} {{ review.client.profile.name }} {{ review.client.profile.patronymic }}
+          </p>
+
+          <p class="review__date">{{ review.date }}</p>
+        </div>
+
+        <tui-rating class="review__rating" [(ngModel)]="review.rating" [readOnly]="true"></tui-rating>
       </div>
 
-      <tui-rating class="review__rating" [(ngModel)]="review.rating" [readOnly]="true"></tui-rating>
       <p class="review__text">{{ review.comment }}</p>
     </div>
   </div>
