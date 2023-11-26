@@ -5,7 +5,6 @@ import {
   Inject,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -13,8 +12,12 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TuiDay } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiNotificationT } from '@taiga-ui/core';
 
-export function normalizeDate(date: string): TuiDay {
+export function parseDate(date: string): TuiDay {
   return date ? TuiDay.normalizeParse(date, 'YMD') : TuiDay.currentLocal();
+}
+
+export function toStringDate(date: TuiDay): string {
+  return date.toString('YMD');
 }
 
 export interface TableColumn {
@@ -30,7 +33,7 @@ export interface TableColumn {
   styleUrl: './editable-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditableTableComponent implements OnChanges, OnInit {
+export class EditableTableComponent implements OnChanges {
   @Input() columns: TableColumn[] = [];
   @Input() rows: any[] = [];
   @Output() editRow = new EventEmitter();
@@ -62,33 +65,33 @@ export class EditableTableComponent implements OnChanges, OnInit {
     }
   }
 
-  ngOnInit(): void {}
-
   addTableRow(): void {
-    const newRowData = this.createNewRowData(this.columns, {});
-    newRowData.actions = new FormControl();
-    this.formArray.push(new FormGroup(newRowData));
+    const parsedRow = this.parseRow(this.columns, {});
+    parsedRow.actions = new FormControl();
+    this.formArray.push(new FormGroup(parsedRow));
   }
 
   editTableRow(formGroup: FormGroup): void {
-    const formData = formGroup.getRawValue();
-    delete formData.actions;
+    const row = formGroup.getRawValue();
+    delete row.actions;
 
     if (formGroup.valid) {
-      this.editRow.emit(formData);
+      const normalizedRow = this.normalizeRow(this.columns, row);
+      this.editRow.emit(normalizedRow);
     } else {
       this.showNotification('Не сохранено', 'Заполните все поля', 'error');
     }
   }
 
   deleteTableRow(formGroup: FormGroup, index: number): void {
-    const formData = formGroup.getRawValue();
-    delete formData.actions;
+    const row = formGroup.getRawValue();
+    delete row.actions;
 
-    if (formData.id === null) {
+    if (row.id === null) {
       this.formArray.removeAt(index);
     } else {
-      this.deleteRow.emit(formData);
+      const normalizedRow = this.normalizeRow(this.columns, row);
+      this.deleteRow.emit(normalizedRow);
     }
   }
 
@@ -96,13 +99,13 @@ export class EditableTableComponent implements OnChanges, OnInit {
     this.formArray.clear();
 
     rows.forEach((row) => {
-      const newRowData = this.createNewRowData(this.columns, row);
-      newRowData.actions = new FormControl();
-      this.formArray.push(new FormGroup(newRowData));
+      const parsedRow = this.parseRow(this.columns, row);
+      parsedRow.actions = new FormControl();
+      this.formArray.push(new FormGroup(parsedRow));
     });
   }
 
-  private createNewRowData(columns: TableColumn[], row: any): any {
+  private parseRow(columns: TableColumn[], row: any): any {
     return columns.reduce((result, column) => {
       let value;
 
@@ -111,7 +114,7 @@ export class EditableTableComponent implements OnChanges, OnInit {
           value = !!row[column.cell];
           break;
         case 'date':
-          value = normalizeDate(row[column.cell]);
+          value = parseDate(row[column.cell]);
           break;
         default:
           value = row[column.cell];
@@ -121,6 +124,22 @@ export class EditableTableComponent implements OnChanges, OnInit {
         ...result,
         [column.cell]: new FormControl(value, [Validators.required]),
       };
+    }, {});
+  }
+
+  private normalizeRow(columns: TableColumn[], row: any): any {
+    return columns.reduce((result, column) => {
+      let value;
+
+      switch (column.type) {
+        case 'date':
+          value = toStringDate(row[column.cell]);
+          break;
+        default:
+          value = row[column.cell];
+      }
+
+      return { ...result, [column.cell]: value };
     }, {});
   }
 

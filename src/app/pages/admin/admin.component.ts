@@ -13,7 +13,6 @@ import { RoomService } from '@core/services/room.service';
 })
 export class AdminComponent implements OnInit {
   tableColumns: TableColumn[] = [
-    { column: 'ID', cell: 'id', type: 'number' },
     { column: 'ID Отеля', cell: 'hotel_id', type: 'number' },
     { column: 'Номер', cell: 'number', type: 'number' },
     { column: 'Тип комнаты', cell: 'room_type', type: 'select', options: ['items', 'kg', 'm'] },
@@ -43,8 +42,6 @@ export class AdminComponent implements OnInit {
   }
 
   editRow(data: any): void {
-    console.log('XXX editRow', data);
-
     this.roomsService.upsertRoom(data).subscribe(() => {
       this.getRooms();
     });
