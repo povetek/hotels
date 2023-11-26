@@ -71,12 +71,13 @@ export class EditableTableComponent implements OnChanges {
     this.formArray.push(new FormGroup(parsedRow));
   }
 
-  editTableRow(formGroup: FormGroup): void {
+  editTableRow(formGroup: FormGroup, index: number): void {
     const row = formGroup.getRawValue();
     delete row.actions;
 
     if (formGroup.valid) {
       const normalizedRow = this.normalizeRow(this.columns, row);
+      normalizedRow.id = this.rows[index].id;
       this.editRow.emit(normalizedRow);
     } else {
       this.showNotification('Не сохранено', 'Заполните все поля', 'error');
@@ -91,6 +92,7 @@ export class EditableTableComponent implements OnChanges {
       this.formArray.removeAt(index);
     } else {
       const normalizedRow = this.normalizeRow(this.columns, row);
+      normalizedRow.id = this.rows[index].id;
       this.deleteRow.emit(normalizedRow);
     }
   }

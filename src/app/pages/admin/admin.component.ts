@@ -15,7 +15,12 @@ export class AdminComponent implements OnInit {
   tableColumns: TableColumn[] = [
     { column: 'ID Отеля', cell: 'hotel_id', type: 'number' },
     { column: 'Номер', cell: 'number', type: 'number' },
-    { column: 'Тип комнаты', cell: 'room_type', type: 'select', options: ['items', 'kg', 'm'] },
+    {
+      column: 'Тип комнаты',
+      cell: 'room_type',
+      type: 'select',
+      options: ['Люкс', 'Трехместный', 'Двухместный', 'Одноместный'],
+    },
     { column: 'Цена за ночь', cell: 'price_per_night', type: 'number' },
     { column: 'Картинка', cell: 'image', type: 'string' },
     { column: 'Количество кроватей', cell: 'bed_count', type: 'number' },
