@@ -26,6 +26,16 @@
           <a class="header__menu-link" routerLink="/statistics">Статистика</a>
         </li>
       </ng-container>
+
+      <ng-container *ngIf="isAdmin$ | async">
+        <li class="header__menu-item">
+          <span class="header__divider"></span>
+        </li>
+
+        <li class="header__menu-item">
+          <a class="header__menu-link" routerLink="/admin">Панель администратора</a>
+        </li>
+      </ng-container>
     </ul>
   </nav>
 

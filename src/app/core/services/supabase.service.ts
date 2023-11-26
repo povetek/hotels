@@ -105,4 +105,8 @@ export class SupabaseService {
   rpc(query: string): Observable<any> {
     return from(this.supabaseClient.rpc(query)).pipe(supabaseDataAdapter());
   }
+
+  delete(table: string, id: any): Observable<any> {
+    return from(this.supabaseClient.from(table).delete().eq('id', id)).pipe(supabaseDataAdapter());
+  }
 }

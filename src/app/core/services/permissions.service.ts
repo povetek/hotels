@@ -9,6 +9,7 @@ import { map, Observable } from 'rxjs';
 export class PermissionsService {
   private clientPermissions = [1];
   private employeePermissions = [2];
+  private adminPermissions = [3];
 
   constructor(private store: Store) {}
 
@@ -28,6 +29,16 @@ export class PermissionsService {
       .pipe(
         map((userPermissions) =>
           this.employeePermissions.every((employeePermission) => userPermissions.includes(employeePermission)),
+        ),
+      );
+  }
+
+  isAdmin(): Observable<boolean> {
+    return this.store
+      .select(AppSelectors.selectPermissions)
+      .pipe(
+        map((userPermissions) =>
+          this.adminPermissions.every((adminPermission) => userPermissions.includes(adminPermission)),
         ),
       );
   }

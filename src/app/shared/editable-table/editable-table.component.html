@@ -1,0 +1,54 @@
+<table class="table" tuiTable [columns]="tableColumns" [formGroup]="formGroup">
+  <thead>
+    <tr tuiThGroup>
+      <th *ngFor="let column of columns" tuiTh>{{ column.column }}</th>
+      <th tuiTh>Действия</th>
+    </tr>
+  </thead>
+
+  <tbody tuiTbody formArrayName="formArray">
+    <tr *ngFor="let control of formArrayControls; index as index" tuiTr [formGroupName]="index">
+      <ng-container *ngFor="let column of columns">
+        <td *tuiCell="column.cell" tuiTd>
+          <ng-container [ngSwitch]="column.type">
+            <tui-input-number *ngSwitchCase="'number'" [formControlName]="column.cell"></tui-input-number>
+            <tui-input *ngSwitchCase="'string'" [formControlName]="column.cell"></tui-input>
+            <tui-input-date *ngSwitchCase="'date'" [formControlName]="column.cell"></tui-input-date>
+
+            <div *ngSwitchCase="'checkbox'" class="checkbox">
+              <tui-checkbox [formControlName]="column.cell"></tui-checkbox>
+            </div>
+
+            <tui-select *ngSwitchCase="'select'" [formControlName]="column.cell">
+              <tui-data-list-wrapper *tuiDataList [items]="column?.options || []"></tui-data-list-wrapper>
+            </tui-select>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <td *tuiCell="'actions'" tuiTd>
+        <div tuiGroup class="group" [collapsed]="true">
+          <button
+            appearance="outline"
+            size="xs"
+            tuiButton
+            type="button"
+            icon="tuiIconSave"
+            (click)="editTableRow(control)"
+          ></button>
+
+          <button
+            appearance="secondary"
+            size="xs"
+            tuiButton
+            type="button"
+            icon="tuiIconTrash2"
+            (click)="deleteTableRow(control, index)"
+          ></button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="add-row-button" tuiButton size="s" (click)="addTableRow()">Добавить строку</button>

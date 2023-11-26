@@ -80,14 +80,14 @@ export class ProfileComponent implements OnInit {
 
               this.profileService.getEmployee(profile.id).subscribe((employee) => {
                 this.formGroup.patchValue({
-                  jobTitle: employee.job_title.title,
-                  salary: employee.job_title.salary,
-                  room: employee.job_title.room,
-                  workExperience: employee.work_experience,
-                  hiringDay: employee.hiring_day
+                  jobTitle: employee?.job_title?.title,
+                  salary: employee?.job_title?.salary,
+                  room: employee?.job_title?.room,
+                  workExperience: employee?.work_experience,
+                  hiringDay: employee?.hiring_day
                     ? TuiDay.normalizeParse(employee.hiring_day, 'YMD')
                     : TuiDay.currentLocal(),
-                  dismissalDay: employee.dismissal_day
+                  dismissalDay: employee?.dismissal_day
                     ? TuiDay.normalizeParse(employee.dismissal_day, 'YMD')
                     : TuiDay.currentLocal(),
                 });

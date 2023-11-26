@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
   isAuthenticated$!: Observable<boolean>;
   homepage$!: Observable<Homepage | null>;
   isEmployee$!: Observable<boolean>;
+  isAdmin$!: Observable<boolean>;
 
   constructor(
     private store: Store,
@@ -44,6 +45,7 @@ export class HeaderComponent implements OnInit {
     this.isAuthenticated$ = this.store.select(AppSelectors.selectIsAuthenticated);
     this.homepage$ = this.store.select(AppSelectors.selectHomepage);
     this.isEmployee$ = this.permissionsService.isEmployee();
+    this.isAdmin$ = this.permissionsService.isAdmin();
   }
 
   signOut(): void {

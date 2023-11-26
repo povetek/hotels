@@ -30,13 +30,17 @@ import {
   TuiDataListModule,
   TuiLabelModule,
   TuiGroupModule,
-  TuiTooltipModule, TuiFormatNumberPipeModule,
+  TuiTooltipModule,
+  TuiFormatNumberPipeModule,
+  TuiScrollbarModule,
 } from '@taiga-ui/core';
 import {
   TuiCarouselModule,
   TuiCheckboxBlockModule,
+  TuiCheckboxModule,
   TuiDataListWrapperModule,
   TuiFieldErrorPipeModule,
+  TuiInputCountModule,
   TuiInputDateModule,
   TuiInputDateRangeModule,
   TuiInputModule,
@@ -49,6 +53,7 @@ import {
   TuiRadioBlockModule,
   TuiRatingModule,
   TuiSelectModule,
+  TuiTextareaModule,
 } from '@taiga-ui/kit';
 import { TuiTableModule } from '@taiga-ui/addon-table';
 import { TuiInputCardGroupedModule, TuiMoneyModule, TuiThumbnailCardModule } from '@taiga-ui/addon-commerce';
@@ -64,13 +69,16 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ReservationComponent } from './pages/reservation/reservation.component';
 import { EmployeePanelComponent } from './pages/employee-panel/employee-panel.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 // Shared
 import { HeaderComponent } from '@shared/header/header.component';
 import { FooterComponent } from '@shared/footer/footer.component';
 import { ReviewComponent } from '@shared/review/review.component';
-import { TuiAutoFocusModule, TuiHoveredModule } from '@taiga-ui/cdk';
+import { TuiAutoFocusModule, TuiHoveredModule, TuiLetModule, TuiValidatorModule } from '@taiga-ui/cdk';
 import { TuiLegendItemModule, TuiRingChartModule } from '@taiga-ui/addon-charts';
+import { IntersectionObserverModule } from '@ng-web-apis/intersection-observer';
+import { EditableTableComponent } from '@shared/editable-table/editable-table.component';
 
 @NgModule({
   declarations: [
@@ -83,9 +91,11 @@ import { TuiLegendItemModule, TuiRingChartModule } from '@taiga-ui/addon-charts'
     ReservationComponent,
     EmployeePanelComponent,
     StatisticsComponent,
+    AdminComponent,
     HeaderComponent,
     FooterComponent,
     ReviewComponent,
+    EditableTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,6 +151,13 @@ import { TuiLegendItemModule, TuiRingChartModule } from '@taiga-ui/addon-charts'
     TuiRingChartModule,
     TuiLegendItemModule,
     TuiHoveredModule,
+    TuiLetModule,
+    TuiTextareaModule,
+    TuiScrollbarModule,
+    TuiInputCountModule,
+    IntersectionObserverModule,
+    TuiValidatorModule,
+    TuiCheckboxModule,
   ],
   providers: [
     {

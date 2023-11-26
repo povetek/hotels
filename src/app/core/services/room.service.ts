@@ -11,6 +11,18 @@ export class RoomService {
     return this.supabaseService.select('room', '*');
   }
 
+  updateRoom(id: string, data: Partial<Room>) {
+    return this.supabaseService.update('room', id, data as any).pipe(map((response) => response[0]));
+  }
+
+  upsertRoom(data: Partial<Room>) {
+    return this.supabaseService.upsert('room', data as any);
+  }
+
+  deleteRoom(id: number): Observable<void> {
+    return this.supabaseService.delete('room', id);
+  }
+
   getReservationsEmployee(filters: Filter[]): Observable<Reservation[]> {
     return this.supabaseService.selectWithFiltersAndOrderBy(
       'reservation',
@@ -43,10 +55,6 @@ export class RoomService {
 
   getTransfers(): Observable<Transfer[]> {
     return this.supabaseService.select('transfer', '*');
-  }
-
-  updateRoom(id: string, data: Partial<Room>) {
-    return this.supabaseService.update('room', id, data as any).pipe(map((response) => response[0]));
   }
 
   insertReservation(data: Reservation): Observable<Profile> {
