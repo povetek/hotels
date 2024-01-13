@@ -13,6 +13,15 @@
         (editRow)="editRow($event)"
         (deleteRow)="deleteRow($event)"
       ></app-editable-table>
+
+      <h4 class="tui-text_h4">Управление чем то</h4>
+
+      <app-editable-table
+        [columns]="tableColumns"
+        [rows]="(tableRows$ | async) || []"
+        (editRow)="editRow($event)"
+        (deleteRow)="deleteRow($event)"
+      ></app-editable-table>
     </div>
   </div>
 </div>
